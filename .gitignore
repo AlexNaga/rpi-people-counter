@@ -12,4 +12,4 @@ node_modules/
 .eslintcache
 
 # VS Code stuff
-vscode/
+.vscode/

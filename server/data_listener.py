@@ -27,6 +27,12 @@ class DataListener:
         """Event handler for MQTT message"""
         time = datetime.now().strftime("%H:%M:%S")
         print("%s %s %s" % (time, msg.topic, msg.payload))
+        message=msg.payload.decode("utf-8")
+        print(message)
+        print(msg.payload)
+        print(self.from_json(msg.payload))
+        # TODO: Create a post (a nice formatted JSON) and add this post to the db
+        # Also, add the timestamp before sending the payload from the hardware device.
 
     def from_json(self, json_data):
         """Decode the data from JSON"""

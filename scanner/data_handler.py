@@ -1,6 +1,7 @@
 import json
+from datetime import datetime
 import paho.mqtt.client as mqtt
-
+from easydict import EasyDict as edict
 
 class DataHandler:
     def __init__(self, physical_area, device_id, mqtt_server, mqtt_port):
@@ -18,11 +19,12 @@ class DataHandler:
 
     def to_json(self, devices):
         """Encodes the data to JSON"""
-        data = {}
+        data = []
 
-        # Loop through the devices
-        for count, mac_address in enumerate(devices):
-            data[count] = mac_address
+        for device_id in devices:
+            timestamp = str(datetime.now())
+            obj = edict({"device_id":device_id, "time":timestamp})
+            data.append(obj)
 
         json_data = json.dumps(data)  # Encode to JSON
         return json_data

@@ -13,12 +13,13 @@ data_handler = DataHandler(
 
 
 def send_data(devices):
+    """Sends the data to the MQTT broker"""
     json_data = data_handler.to_json(devices)
     data_handler.send_data(json_data)
 
 
 def is_no_device_found(devices):
-    """Checks if any Bluetooth device found"""
+    """Checks if any device found"""
     return len(devices) < 1
 
 
@@ -28,7 +29,7 @@ def main():
         bt_devices = scanner.find_bt_devices()
 
         time = datetime.now().strftime("%H:%M:%S")
-        print("Found %d devices - %s" % (len(bt_devices), time))
+        print("%s - %d devices found" % (time, len(bt_devices)))
 
         if is_no_device_found(bt_devices):
             continue  # Don't send the data

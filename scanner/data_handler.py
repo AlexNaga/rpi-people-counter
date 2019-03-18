@@ -14,7 +14,6 @@ class DataHandler:
 
     def send_data(self, data):
         """Sends the data to the MQTT broker"""
-        print(data)
         self.mqttc.publish(self.physical_area, data)
 
     def to_json(self, devices):

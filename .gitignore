@@ -16,3 +16,6 @@ node_modules/
 
 # Python
 *.pyc
+
+# Configs
+config.ini

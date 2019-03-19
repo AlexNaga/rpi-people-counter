@@ -11,6 +11,7 @@ autopep8 = "*"
 pybluez = "*"
 paho-mqtt = "*"
 easydict = "*"
+configparser = "*"
 
 [requires]
 python_version = "3.7"

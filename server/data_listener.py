@@ -1,16 +1,26 @@
-import json
 import paho.mqtt.client as mqtt
 from datetime import datetime
+from data_handler import DataHandler
+from db_handler import DatabaseHandler
+import configparser
+
+config = configparser.ConfigParser()
+config.read("config.ini")
+
+MQTT_SERVER = config.get("DEFAULT", "MQTT_SERVER")
+MQTT_PORT = config.getint("DEFAULT", "MQTT_PORT")
+
 
 class DataListener:
-    def __init__(self, physical_area, mqtt_server, mqtt_port):
+    def __init__(self, physical_area):
         self.physical_area = physical_area
 
         # Config the MQTT client
         self.mqttc = mqtt.Client()
 
         # Connect to the MQTT broker
-        self.mqttc.connect(mqtt_server, mqtt_port)
+        self.mqttc.connect(MQTT_SERVER, MQTT_PORT)
+
 
     def start(self):
         """Listens for data from the MQTT broker"""
@@ -27,14 +37,14 @@ class DataListener:
         """Event handler for MQTT message"""
         time = datetime.now().strftime("%H:%M:%S")
         print("%s %s %s" % (time, msg.topic, msg.payload))
-        message=msg.payload.decode("utf-8")
-        print(message)
-        print(msg.payload)
-        print(self.from_json(msg.payload))
-        # TODO: Create a post (a nice formatted JSON) and add this post to the db
-        # Also, add the timestamp before sending the payload from the hardware device.
 
-    def from_json(self, json_data):
-        """Decode the data from JSON"""
-        data = json.loads(json_data) # Decode JSON data
-        return data
+        payload = msg.payload.decode("utf-8")
+
+        data_handler = DataHandler()
+        obj = data_handler.from_json(payload)
+        devices = data_handler.add_area_to_data(obj, msg.topic)
+
+        db_handler = DatabaseHandler()
+        db_handler.add_to_db(devices)
+
+        # TODO: Create a post (a nice formatted JSON) and add this post to the db

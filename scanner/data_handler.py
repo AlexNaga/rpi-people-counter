@@ -13,6 +13,7 @@ class DataHandler:
         # Connect to the MQTT broker
         self.mqttc.connect(mqtt_server, mqtt_port)
 
+
     def send_data(self, data):
         """Sends the data to the MQTT broker"""
         self.mqttc.publish(self.physical_area, data)

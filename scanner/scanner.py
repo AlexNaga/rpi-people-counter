@@ -1,7 +1,10 @@
 import bluetooth
+import configparser
 
-# Config
-SECONDS_BETWEEN_BT_SCANS = 2
+config = configparser.ConfigParser()
+config.read("config.ini")
+
+SECONDS_BETWEEN_BT_SCANS = config.getint("DEFAULT", "SECONDS_BETWEEN_BT_SCANS")
 
 
 class Scanner:

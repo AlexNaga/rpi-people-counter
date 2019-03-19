@@ -1,21 +1,18 @@
 from data_listener import DataListener
 from db_handler import DatabaseHandler
+import configparser
 
-# MQTT config
-PHYSICAL_AREA = "lnu/campus"  # The location to receive data from
-MQTT_SERVER = "192.168.10.235"
-MQTT_PORT = 1883
+config = configparser.ConfigParser()
+config.read("config.ini")
 
-# MongoDB config
-MONGODB_SERVER = "localhost"
-MONGODB_PORT = 27017
+PHYSICAL_AREA = config.get("DEFAULT", "PHYSICAL_AREA") # The location to receive data from
+
 
 def main():
     while True:
-        # db_handler = DatabaseHandler(MONGODB_SERVER, MONGODB_PORT)
-
-        data_listener = DataListener(PHYSICAL_AREA, MQTT_SERVER, MQTT_PORT)
+        data_listener = DataListener(PHYSICAL_AREA)
         data_listener.start()
+
 
 if __name__ == "__main__":
     main()

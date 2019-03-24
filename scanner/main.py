@@ -6,13 +6,11 @@ import configparser
 config = configparser.ConfigParser()
 config.read("config.ini")
 
-PHYSICAL_AREA = config.get("DEFAULT", "PHYSICAL_AREA") # The location for this device
+# The location for this device
+PHYSICAL_AREA = config.get("DEFAULT", "PHYSICAL_AREA")
 DEVICE_ID = config.get("DEFAULT", "DEVICE_ID")
-MQTT_SERVER = config.get("DEFAULT", "MQTT_SERVER")
-MQTT_PORT = config.getint("DEFAULT", "MQTT_PORT")
 
-data_handler = DataHandler(
-    PHYSICAL_AREA, DEVICE_ID, MQTT_SERVER, MQTT_PORT)
+data_handler = DataHandler(PHYSICAL_AREA, DEVICE_ID)
 
 
 def send_data(devices):
@@ -27,16 +25,17 @@ def is_device_found(devices):
 
 
 def main():
+    scanner = Scanner()
+    scanner.start_bt()
+
     while True:
-        scanner = Scanner()
         bt_devices = scanner.find_bt_devices()
-        device_not_found = is_device_found(bt_devices) == False
 
         time = datetime.now().strftime("%H:%M:%S")
         print("%s - %d devices found" % (time, len(bt_devices)))
 
-        if device_not_found:
-            continue  # Don't send the data
+        if not is_device_found(bt_devices):
+            continue  # If no devices found, don't send the data
 
         send_data(bt_devices)
 

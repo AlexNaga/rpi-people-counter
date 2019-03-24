@@ -5,14 +5,16 @@ import configparser
 config = configparser.ConfigParser()
 config.read("config.ini")
 
-PHYSICAL_AREA = config.get("DEFAULT", "PHYSICAL_AREA") # The location to receive data from
+# The location to receive data from
+PHYSICAL_AREA = config.get("DEFAULT", "PHYSICAL_AREA")
 
 
 def main():
-    while True:
+    # while True:
         data_listener = DataListener(PHYSICAL_AREA)
         data_listener.start()
 
-
 if __name__ == "__main__":
     main()
+    # db_handler = DatabaseHandler()
+    # db_handler.get_from_db()

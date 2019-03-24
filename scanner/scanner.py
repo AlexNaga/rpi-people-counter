@@ -1,3 +1,4 @@
+import subprocess
 import bluetooth
 import configparser
 
@@ -16,3 +17,10 @@ class Scanner:
         """Scans for nearby WiFi devices"""
         # TODO: Implement this
         return None
+
+    def start_bt(self):
+        """Starts the Bluetooth device"""
+        try:
+            subprocess.check_output(['./scripts/start_bt.sh'])
+        except subprocess.CalledProcessError:
+            print("Error: Couldn't start the Bluetooth device")

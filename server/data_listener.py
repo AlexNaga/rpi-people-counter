@@ -21,12 +21,11 @@ class DataListener:
         # Connect to the MQTT broker
         self.mqttc.connect(MQTT_SERVER, MQTT_PORT)
 
-
     def start(self):
         """Listens for data from the MQTT broker"""
         self.mqttc.on_connect = self.on_connect
         self.mqttc.on_message = self.on_message
-        self.mqttc.loop_forever()
+        self.mqttc.loop_forever()  # Blocking loop to the broker
 
     def on_connect(self, client, userdata, flags, rc):
         """Event handler for MQTT connection"""
@@ -41,10 +40,7 @@ class DataListener:
         payload = msg.payload.decode("utf-8")
 
         data_handler = DataHandler()
-        obj = data_handler.from_json(payload)
-        devices = data_handler.add_area_to_data(obj, msg.topic)
+        devices = data_handler.from_json(payload)
 
         db_handler = DatabaseHandler()
         db_handler.add_to_db(devices)
-
-        # TODO: Create a post (a nice formatted JSON) and add this post to the db

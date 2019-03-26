@@ -1,39 +1,35 @@
 import json
+from data_sender import DataSender
 from datetime import datetime
-import paho.mqtt.client as mqtt
 from easydict import EasyDict as edict
 import configparser
 
 config = configparser.ConfigParser()
-config.read("config.ini")
+config.read("config/config.ini")
 
-MQTT_SERVER = config.get("DEFAULT", "MQTT_SERVER")
-MQTT_PORT = config.getint("DEFAULT", "MQTT_PORT")
+# The location for this device
+PHYSICAL_AREA = config.get("DEFAULT", "PHYSICAL_AREA")
 
 
 class DataHandler:
-    def __init__(self, physical_area, device_id):
-        self.physical_area = physical_area
+    def __init__(self):
+        self.data_sender = DataSender()
 
-        # Config the MQTT client
-        self.mqttc = mqtt.Client(client_id=device_id)
-
-        # Connect to the MQTT broker
-        self.mqttc.connect(MQTT_SERVER, MQTT_PORT)
-
-    def send_data(self, data):
+    def send_data(self, devices_count, sensor_type):
         """Sends the data to the MQTT broker"""
-        self.mqttc.publish(self.physical_area, data)
+        json_data = self.to_json(devices_count, sensor_type)
+        self.data_sender.send_data(json_data)
 
-    def to_json(self, devices):
+    def to_json(self, devices_count, sensor_type):
         """Encodes the data to JSON"""
-        data = []
+        timestamp = str(datetime.now())
 
-        for device_id in devices:
-            timestamp = str(datetime.now())
-            obj = edict({"device_id": device_id,
-                         "timestamp": timestamp, "area": self.physical_area})
-            data.append(obj)
+        data = edict({"devices_count": devices_count,
+                      "timestamp": timestamp, "area": PHYSICAL_AREA, "sensor": sensor_type})
 
         json_data = json.dumps(data)  # Encode to JSON
         return json_data
+
+    def is_device_found(self, devices_count):
+        """Checks if any device found"""
+        return devices_count > 0

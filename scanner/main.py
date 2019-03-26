@@ -1,43 +1,35 @@
 from data_handler import DataHandler
 from scanner import Scanner
 from datetime import datetime
-import configparser
-
-config = configparser.ConfigParser()
-config.read("config.ini")
-
-# The location for this device
-PHYSICAL_AREA = config.get("DEFAULT", "PHYSICAL_AREA")
-DEVICE_ID = config.get("DEFAULT", "DEVICE_ID")
-
-data_handler = DataHandler(PHYSICAL_AREA, DEVICE_ID)
 
 
-def send_data(devices):
-    """Sends the data to the MQTT broker"""
-    json_data = data_handler.to_json(devices)
-    data_handler.send_data(json_data)
-
-
-def is_device_found(devices):
-    """Checks if any device found"""
-    return len(devices) > 0
+def printStats(devices_count):
+    time = datetime.now().strftime("%H:%M:%S")
+    print("%s - %d devices found" % (time, devices_count))
 
 
 def main():
     scanner = Scanner()
-    scanner.start_bt()
+    # scanner.start_bt()
+    data_handler = DataHandler()
 
     while True:
-        bt_devices = scanner.find_bt_devices()
+        bt_devices_count = scanner.count_bt_devices()
+        bt_devices_found = data_handler.is_device_found(bt_devices_count)
 
-        time = datetime.now().strftime("%H:%M:%S")
-        print("%s - %d devices found" % (time, len(bt_devices)))
+        printStats(bt_devices_count)
 
-        if not is_device_found(bt_devices):
+        if not bt_devices_found:
             continue  # If no devices found, don't send the data
+        else:
+            sensor_type = "bt"
+            data_handler.send_data(bt_devices_count, sensor_type)
 
-        send_data(bt_devices)
+        # if not is_device_found(wifi_devices_count):
+        #     continue  # If no devices found, don't send the data
+        # else:
+        #     sensor_type = "wifi"
+        #     send_data(bt_devices_count, sensor_type)
 
 
 if __name__ == "__main__":

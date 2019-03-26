@@ -1,5 +1,5 @@
 [DEFAULT]
-DEVICE_ID = rpi0w_0
+SENSOR_ID = rpi0w_0
 PHYSICAL_AREA = lnu/classrooms/classroom_0
 MONGODB_SERVER = localhost
 MONGODB_PORT = 27017

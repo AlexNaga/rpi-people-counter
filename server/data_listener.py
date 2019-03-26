@@ -5,7 +5,7 @@ from db_handler import DatabaseHandler
 import configparser
 
 config = configparser.ConfigParser()
-config.read("config.ini")
+config.read("config/config.ini")
 
 MQTT_SERVER = config.get("DEFAULT", "MQTT_SERVER")
 MQTT_PORT = config.getint("DEFAULT", "MQTT_PORT")
@@ -21,6 +21,9 @@ class DataListener:
         # Connect to the MQTT broker
         self.mqttc.connect(MQTT_SERVER, MQTT_PORT)
 
+        self.data_handler = DataHandler()
+        self.db_handler = DatabaseHandler()
+
     def start(self):
         """Listens for data from the MQTT broker"""
         self.mqttc.on_connect = self.on_connect
@@ -35,12 +38,8 @@ class DataListener:
     def on_message(self, client, userdata, msg):
         """Event handler for MQTT message"""
         time = datetime.now().strftime("%H:%M:%S")
-        print("%s %s %s" % (time, msg.topic, msg.payload))
-
         payload = msg.payload.decode("utf-8")
+        print("%s %s" % (time, payload))
 
-        data_handler = DataHandler()
-        devices = data_handler.from_json(payload)
-
-        db_handler = DatabaseHandler()
-        db_handler.add_to_db(devices)
+        devices = self.data_handler.from_json(payload)
+        self.db_handler.add_to_db(devices)

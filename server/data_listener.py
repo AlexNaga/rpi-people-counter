@@ -41,5 +41,5 @@ class DataListener:
         payload = msg.payload.decode("utf-8")
         print("%s %s" % (time, payload))
 
-        devices = self.data_handler.from_json(payload)
-        self.db_handler.add_to_db(devices)
+        data = self.data_handler.from_json(payload)
+        self.db_handler.add(data)

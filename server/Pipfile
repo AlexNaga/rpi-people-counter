@@ -9,6 +9,7 @@ verify_ssl = true
 paho-mqtt = "*"
 pymongo = "*"
 configparser = "*"
+tornado = "*"
 
 [requires]
 python_version = "3.7"

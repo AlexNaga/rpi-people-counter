@@ -4,3 +4,5 @@ MONGODB_SERVER = localhost
 MONGODB_PORT = 27017
 MQTT_SERVER = localhost
 MQTT_PORT = 1883
+WS_SERVER = localhost
+WS_PORT = 8000

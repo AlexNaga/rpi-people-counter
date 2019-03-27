@@ -21,4 +21,4 @@ class DatabaseHandler():
 
     def get_all(self):
         """Gets all data from the db"""
-        return list(self.collection.find())  # Return a list
+        return list(self.collection.find({}, {"_id": False}))  # Return a list

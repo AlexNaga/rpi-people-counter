@@ -1,9 +1,10 @@
 // Config
-const WS_SERVER = "localhost"
-const WS_PORT = 8000
+const SERVER = "localhost"
+const PORT = 8000
+
+const ws = new WebSocket(`ws://${SERVER}:${PORT}/ws`);
 
 function wsConnect() {
-    const ws = new WebSocket(`ws://${WS_SERVER}:${WS_PORT}/ws`);
     ws.onopen = function () {
         console.log('Connected to ws');
     };
@@ -13,7 +14,17 @@ function wsConnect() {
     };
 }
 
+function getData() {
+    fetch(`http://${SERVER}:${PORT}/data`)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (json_data) {
+            console.log(json_data);
+        });
+}
 function main() {
+    getData();
     wsConnect();
 }
 

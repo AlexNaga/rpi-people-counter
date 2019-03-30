@@ -1,15 +1,21 @@
+from tornado import gen, ioloop, websocket
 import paho.mqtt.client as mqtt
 from datetime import datetime
 from data_handler import DataHandler
+from data_sender import WebSocketHandler
 from db_handler import DatabaseHandler
 import configparser
 
 config = configparser.ConfigParser()
 config.read("config/config.ini")
 
+# The location to receive data from
+PHYSICAL_AREA = config.get("DEFAULT", "PHYSICAL_AREA")
+
 MQTT_SERVER = config.get("DEFAULT", "MQTT_SERVER")
 MQTT_PORT = config.getint("DEFAULT", "MQTT_PORT")
-
+WS_SERVER = config.get("DEFAULT", "WS_SERVER")
+WS_PORT = config.getint("DEFAULT", "WS_PORT")
 
 class DataListener:
     def __init__(self, physical_area):
@@ -43,3 +49,17 @@ class DataListener:
 
         data = self.data_handler.from_json(payload)
         self.db_handler.add(data)
+
+        ioloop.IOLoop.instance().run_sync(forward_data_to_ws(payload))
+
+
+@gen.coroutine
+def forward_data_to_ws(data):
+    client = yield websocket.websocket_connect("ws://%s:%s/ws" % (WS_SERVER, WS_PORT))
+    client.write_message(data)
+    client.close()
+
+
+if __name__ == "__main__":
+    data_listener = DataListener(PHYSICAL_AREA)
+    data_listener.start()

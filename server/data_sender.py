@@ -26,11 +26,21 @@ class DataSender(tornado.web.RequestHandler):
 
 
 class WebSocketHandler(tornado.websocket.WebSocketHandler):
+    clients = []
+
     def open(self):
-        print("WebSocket opened")
+        WebSocketHandler.clients.append(self)
+
+    def on_close(self):
+        WebSocketHandler.clients.remove(self)
 
     def on_message(self, message):
-        self.write_message(u"You said: " + message)
+        self.send_data(message) # Forward the data to the clients
 
     def check_origin(self, origin):
         return True
+
+    @classmethod
+    def send_data(cls, data):
+        for client in cls.clients:
+            client.write_message(data)

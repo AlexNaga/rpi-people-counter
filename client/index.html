@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>piPeCounter</title>
-  <link rel="stylesheet" href="css/bulma.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
   <link rel="stylesheet" href="css/main.css">
   <link href="img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 </head>
@@ -34,13 +34,15 @@
         <div class="column is-centered">
           <div class="content">
             <section class="columns">
-
               <div class="column is-7 is-offset-2">
 
                 <!-- Results -->
-                <div id="search-result"></div>
-              </div>
+                <h2 id="peopleCount"></h2>
 
+                <!-- Charts -->
+                <canvas id="lineChart"></canvas>
+
+              </div>
             </section>
           </div>
         </div>
@@ -48,6 +50,7 @@
     </div>
     </div>
   </section>
+
   <footer class="footer has-text-centered">
     <div class="container">
       <div class="columns">
@@ -62,6 +65,13 @@
       </div>
     </div>
   </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@latest/dist/chartjs-plugin-streaming.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes@latest/dist/chartjs-plugin-colorschemes.min.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
 </body>
 

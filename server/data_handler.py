@@ -1,5 +1,4 @@
 from bson.json_util import dumps, loads
-from datetime import datetime
 
 
 class DataHandler:

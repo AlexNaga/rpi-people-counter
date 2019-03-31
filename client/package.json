@@ -23,5 +23,6 @@
   "homepage": "https://github.com/AlexNaga/rpi-people-counter#readme",
   "devDependencies": {},
   "dependencies": {
+    "@types/chart.js": "^2.7.50"
   }
 }

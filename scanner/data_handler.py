@@ -29,7 +29,3 @@ class DataHandler:
 
         json_data = json.dumps(data)  # Encode to JSON
         return json_data
-
-    def is_device_found(self, devices_count):
-        """Checks if any device found"""
-        return devices_count > 0

@@ -17,6 +17,7 @@ MQTT_PORT = config.getint("DEFAULT", "MQTT_PORT")
 WS_SERVER = config.get("DEFAULT", "WS_SERVER")
 WS_PORT = config.getint("DEFAULT", "WS_PORT")
 
+
 class DataListener:
     def __init__(self, physical_area):
         self.physical_area = physical_area
@@ -48,7 +49,12 @@ class DataListener:
         print("%s %s" % (time, payload))
 
         data = self.data_handler.from_json(payload)
-        self.db_handler.add(data)
+        devices_count = data["devices_count"]
+        devices_found = self.data_handler.is_device_found(devices_count)
+
+        # Only save to db if devices found
+        if devices_found:
+            self.db_handler.add(data)
 
         ioloop.IOLoop.instance().run_sync(forward_data_to_ws(payload))
 

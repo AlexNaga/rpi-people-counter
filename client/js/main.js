@@ -10,7 +10,6 @@ function wsConnect() {
   };
 
   ws.onmessage = function (msg) {
-    console.log("Got a message!");
     const data = JSON.parse(msg.data);
     updateChart(data)
   };
@@ -30,23 +29,42 @@ function updatePeopleCount(data) {
 }
 
 
-const timeInSeconds = 16;
+const delayInSeconds = 30 * 1000;
+const ttlInSeconds = 90 * 1000;
+const durationInSeconds = 40 * 1000;
+
 const ctx = document.getElementById("lineChart").getContext("2d");
 const liveChart = new Chart(ctx, {
   type: "line",
   data: {
     datasets: [{
+      label: "Bluetooth",
       data: []
     }, {
+      label: "WiFi",
       data: []
     }]
   },
   options: {
+    title: {
+      display: true,
+      text: "Estimate of number of people in the area.",
+    },
     scales: {
       xAxes: [{
         type: "realtime",
         realtime: {
-          delay: timeInSeconds * 1000,
+          delay: delayInSeconds,
+          duration: durationInSeconds,
+          ttl: ttlInSeconds,
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+          callback: function (value) { if (value % 1 === 0) { return value; } },
+          suggestedMax: 10,
+          suggestedMin: 0,
         }
       }]
     },
@@ -54,7 +72,7 @@ const liveChart = new Chart(ctx, {
       colorschemes: {
         scheme: "tableau.ClassicCyclic13"
       }
-    }
+    },
   }
 });
 
@@ -89,7 +107,24 @@ function updateChart(data) {
   });
 }
 
+function initChart() {
+  d = new Date()
+
+  liveChart.data.datasets[0].data.push({
+    x: new Date().setSeconds(d.getSeconds() - 30),
+    y: 0
+  });
+
+  // Update chart datasets keeping the current animation
+  liveChart.update({
+    preservation: true
+  });
+  console.log("asd");
+
+}
+
 window.onload = function () {
-  getData().then(init_data => createLiveChart(init_data));
+  initChart();
+  // getData().then(init_data => createLiveChart(init_data));
   wsConnect();
 };

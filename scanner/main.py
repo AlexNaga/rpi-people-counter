@@ -10,7 +10,7 @@ def printStats(devices_count):
 
 def main():
     scanner = Scanner()
-    # scanner.start_bt()
+    scanner.start_bt()
     data_handler = DataHandler()
 
     while True:

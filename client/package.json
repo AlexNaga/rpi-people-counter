@@ -2,9 +2,11 @@
   "name": "rpi-people-counter",
   "version": "1.0.0",
   "description": "Real-time application for estimating the number of people in an area using WiFi and Bluetooth signals.",
-  "main": "app.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -21,8 +23,15 @@
     "url": "https://github.com/AlexNaga/rpi-people-counter/issues"
   },
   "homepage": "https://github.com/AlexNaga/rpi-people-counter#readme",
-  "devDependencies": {},
+  "devDependencies": {
+    "browser-sync-webpack-plugin": "^2.2.2",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.4.1",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  },
   "dependencies": {
-    "@types/chart.js": "^2.7.50"
+    "@types/chart.js": "^2.7.50",
+    "browser-sync": "^2.26.3"
   }
 }

@@ -22,3 +22,9 @@ class DatabaseHandler():
     def get_all(self):
         """Gets all data from the db"""
         return list(self.collection.find({}, {"_id": False}))  # Return a list
+
+    def get_latest(self):
+        """Gets the lastest entry from the db"""
+        x = self.collection.find({}, {"_id": False}).limit(1)
+        print(x)
+        return self.collection.find({}, {"_id": False}).limit(1)

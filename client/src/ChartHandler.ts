@@ -5,7 +5,7 @@ const delayInSeconds = 30 * 1000;
 const ttlInSeconds = 90 * 1000;
 const durationInSeconds = 40 * 1000;
 
-const canvas: any = document.getElementById("liveChart");
+const canvas = <HTMLCanvasElement>document.getElementById("liveChart");
 const ctx = canvas.getContext("2d");
 
 const liveChart = new Chart(ctx, {
@@ -54,12 +54,15 @@ class ChartHandler {
   constructor() {
   }
 
-  initChart() {
+  initChart(data: any) {
+    const last_element = data[data.length - 1];
+    console.log(last_element.devices_count);
+
     let initDate = new Date();
 
     liveChart.data.datasets[0].data.push({
       x: initDate.setSeconds(initDate.getSeconds() - 30),
-      y: 0
+      y: last_element.devices_count
     });
 
     // Update chart datasets keeping the current animation

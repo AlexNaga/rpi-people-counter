@@ -1,5 +1,5 @@
 from data_listener import DataListener
-from data_sender import DataSender, WebSocketHandler
+from data_sender import GetAll, GetLatest, WebSocketHandler
 from tornado import ioloop, web
 import configparser
 
@@ -12,7 +12,8 @@ WS_PORT = config.getint("DEFAULT", "WS_PORT")
 
 def make_app():
     return web.Application([
-        (r"/data", DataSender),
+        (r"/data/all", GetAll),
+        (r"/data/latest", GetLatest),
         (r"/ws", WebSocketHandler),
     ])
 
@@ -22,6 +23,3 @@ if __name__ == "__main__":
     app = make_app()
     app.listen(WS_PORT)
     ioloop.IOLoop.current().start()
-
-    # data_sender = DataSender()
-    # data_sender.start()

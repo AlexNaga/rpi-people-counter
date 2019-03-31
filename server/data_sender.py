@@ -12,12 +12,25 @@ WS_SERVER = config.get("DEFAULT", "WS_SERVER")
 WS_PORT = config.getint("DEFAULT", "WS_PORT")
 
 
-class DataSender(tornado.web.RequestHandler):
+class GetAll(tornado.web.RequestHandler):
     def get(self):
-        """Sends the data to the client"""
+        """Sends all the data to the client"""
         db_handler = DatabaseHandler()
         data_handler = DataHandler()
         data = db_handler.get_all()
+        json_data = data_handler.to_json(data)
+        self.write(json_data)
+
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+
+
+class GetLatest(tornado.web.RequestHandler):
+    def get(self):
+        """Sends the latest entry to the client"""
+        db_handler = DatabaseHandler()
+        data_handler = DataHandler()
+        data = db_handler.get_latest()
         json_data = data_handler.to_json(data)
         self.write(json_data)
 
@@ -35,7 +48,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         WebSocketHandler.clients.remove(self)
 
     def on_message(self, message):
-        self.send_data(message) # Forward the data to the clients
+        self.send_data(message)  # Forward the data to the clients
 
     def check_origin(self, origin):
         return True

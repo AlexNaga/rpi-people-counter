@@ -19,6 +19,8 @@ node_modules/
 
 # Configs
 config.ini
-run_listener.sh
-run_scanner.sh
-run_server.sh
+
+# Scripts
+2_run_scanner.sh
+1_run_server.sh
+3_run_listener.sh

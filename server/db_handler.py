@@ -25,6 +25,5 @@ class DatabaseHandler():
 
     def get_latest(self):
         """Gets the lastest entry from the db"""
-        x = self.collection.find({}, {"_id": False}).limit(1)
-        print(x)
-        return self.collection.find({}, {"_id": False}).limit(1)
+        return self.collection.find({}, {"_id": False}).sort(
+            [("timestamp", -1)]).limit(1)

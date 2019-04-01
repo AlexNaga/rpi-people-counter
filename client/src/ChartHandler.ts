@@ -55,14 +55,16 @@ class ChartHandler {
   }
 
   initChart(data: any) {
-    const last_element = data[data.length - 1];
-    console.log(last_element.devices_count);
-
     let initDate = new Date();
 
     liveChart.data.datasets[0].data.push({
       x: initDate.setSeconds(initDate.getSeconds() - 30),
-      y: last_element.devices_count
+      y: data[0].devices_count
+    });
+
+    liveChart.data.datasets[0].data.push({
+      x: initDate.setSeconds(initDate.getSeconds() + 5),
+      y: data[0].devices_count
     });
 
     // Update chart datasets keeping the current animation

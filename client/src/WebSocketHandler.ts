@@ -3,24 +3,25 @@ import { Data } from "./DataInterface";
 
 class WebSocketHandler {
   ws: WebSocket;
+  chartHandler: ChartHandler;
 
   constructor(url: string) {
     this.ws = new WebSocket(url);
+    this.chartHandler = new ChartHandler();
   }
 
   connect() {
     this.ws.onopen = this.onOpen;
-    this.ws.onmessage = this.onMessage;
+    this.ws.onmessage = this.onMessage.bind(this);
   }
 
   private onOpen() {
     console.log("Connected to ws.");
   }
 
-  onMessage(msg: MessageEvent) {
+  private onMessage(msg: MessageEvent) {
     const data: Data = JSON.parse(msg.data);
-    const chartHandler = new ChartHandler();
-    chartHandler.updateLiveChart(data);
+    this.chartHandler.updateLiveChart(data);
   }
 }
 

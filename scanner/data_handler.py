@@ -22,7 +22,8 @@ class DataHandler:
 
     def to_json(self, devices_count, sensor_type):
         """Encodes the data to JSON"""
-        timestamp = str(datetime.now())
+        dateFormat = "%Y-%m-%d %H:%M:%S"  # 2019-04-01 16:17:26
+        timestamp = str(datetime.now().strftime(dateFormat))
 
         data = edict({"devices_count": devices_count,
                       "timestamp": timestamp, "area": PHYSICAL_AREA, "sensor_type": sensor_type})

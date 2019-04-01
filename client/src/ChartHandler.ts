@@ -2,6 +2,7 @@ import { Data } from "./DataInterface";
 import { Chart } from "chart.js";
 import "chartjs-plugin-streaming";
 import "chartjs-plugin-colorschemes";
+import * as moment from "moment";
 
 // Config
 const delayInSeconds = 30 * 1000;
@@ -65,23 +66,24 @@ const liveChart = new Chart(ctx, {
 });
 
 class ChartHandler {
+  private dateFormat: string;
+
   constructor() {
+    this.dateFormat = "YYYY-MM-DD H:mm:ss"; // 2019-04-01 16:17:26
   }
 
   initLiveChart(data: any) {
-    const initDate = new Date();
-    const delayTime = [[30, 5], [5, 5]];
+    let initDate = moment().format(this.dateFormat);
+    const delayInSeconds = [30, 25, 20];
 
+    // Add "buffer" ticks for a smoother init of the chart
     for (let i = 0; i < data.length; i++) {
-      liveChart.data.datasets[i].data.push({
-        x: initDate.setSeconds(initDate.getSeconds() - delayTime[i][0]),
-        y: data[i].devices_count
-      });
-
-      liveChart.data.datasets[i].data.push({
-        x: initDate.setSeconds(initDate.getSeconds() + delayTime[i][1]),
-        y: data[i].devices_count
-      });
+      for (let x = 0; x < delayInSeconds.length; x++) {
+        liveChart.data.datasets[i].data.push({
+          x: moment(initDate).subtract(delayInSeconds[x], "seconds").format(this.dateFormat),
+          y: data[i].devices_count
+        });
+      }
     }
 
     // Update chart datasets keeping the current animation
@@ -89,21 +91,6 @@ class ChartHandler {
       preservation: true
     });
   }
-
-  // createLiveChart(data) {
-  //   const dataList = [];
-
-  //   data.forEach(i => {
-  //     const timestamp = i["timestamp"];
-  //     const devices_count = i["devices_count"];
-  //     dataList.push({
-  //       x: timestamp,
-  //       y: devices_count
-  //     })
-  //   });
-
-  //   // console.log(dataList);
-  // }
 
   updateLiveChart(data: Data) {
     let chartToUpdate = 0;

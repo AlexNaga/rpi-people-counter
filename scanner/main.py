@@ -11,7 +11,7 @@ def printStats(devices_count, sensor_type):
 
 def main():
     scanner = Scanner()
-    # scanner.start_bt()
+    scanner.start_bt()
     data_handler = DataHandler()
 
     while True:

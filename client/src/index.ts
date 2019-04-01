@@ -14,7 +14,8 @@ window.onload = () => {
   const chartHandler = new ChartHandler();
   const dataHandler = new DataHandler(SERVER_URL);
   const wsHandler = new WebSocketHandler(WS_URL);
-  
+
   wsHandler.connect();
   dataHandler.getLatest().then(init_data => chartHandler.initLiveChart(init_data));
+  // dataHandler.getAllData().then(data => console.log(data));
 };

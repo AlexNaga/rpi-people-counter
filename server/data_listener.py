@@ -1,10 +1,8 @@
-from tornado import gen, ioloop, websocket
-import paho.mqtt.client as mqtt
-from datetime import datetime
 from data_handler import DataHandler
-from data_sender import WebSocketHandler
 from db_handler import DatabaseHandler
+from tornado import gen, ioloop, websocket
 import configparser
+import paho.mqtt.client as mqtt
 
 config = configparser.ConfigParser()
 config.read("config/config.ini")
@@ -44,11 +42,9 @@ class DataListener:
 
     def on_message(self, client, userdata, msg):
         """Event handler for MQTT message"""
-        time = datetime.now().strftime("%H:%M:%S")
         payload = msg.payload.decode("utf-8")
-        print("%s %s" % (time, payload))
-
         data = self.data_handler.from_json(payload)
+
         devices_count = data["devices_count"]
         devices_found = self.data_handler.is_device_found(devices_count)
 

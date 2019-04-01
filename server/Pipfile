@@ -10,6 +10,7 @@ paho-mqtt = "*"
 pymongo = "*"
 configparser = "*"
 tornado = "*"
+easydict = "*"
 
 [requires]
 python_version = "3.7"

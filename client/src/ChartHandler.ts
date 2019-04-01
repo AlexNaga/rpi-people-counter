@@ -4,15 +4,14 @@ import "chartjs-plugin-streaming";
 import "chartjs-plugin-colorschemes";
 import * as moment from "moment";
 
-// Config
+// Config for the live chart
 const delayInSeconds = 30 * 1000;
 const ttlInSeconds = 90 * 1000;
 const durationInSeconds = 40 * 1000;
 
-const canvas = <HTMLCanvasElement>document.getElementById("liveChart");
-const ctx = canvas.getContext("2d");
-
-const liveChart = new Chart(ctx, {
+const liveCanvas = <HTMLCanvasElement>document.getElementById("liveChart");
+const liveCtx = liveCanvas.getContext("2d");
+const liveChart = new Chart(liveCtx, {
   type: "line",
   data: {
     datasets: [{
@@ -63,15 +62,37 @@ const liveChart = new Chart(ctx, {
       }
     },
     tooltips: {
-      mode: 'nearest',
+      mode: "nearest",
       intersect: false
     },
     hover: {
-      mode: 'nearest',
+      mode: "nearest",
       intersect: false
     },
   }
 });
+
+
+// Config for the pie chart
+
+// Detection rate of Bluetooth and Wifi
+const pieCanvas = <HTMLCanvasElement>document.getElementById("pieChart");
+const pieCtx = pieCanvas.getContext("2d");
+const pieChart = new Chart(pieCtx, {
+  type: "pie",
+  data: {
+    datasets: [{
+      label: "Bluetooth",
+      data: [2, 10],
+      fill: false
+    }],
+    labels: [
+      "Bluetooth",
+      "WiFi",
+    ]
+  },
+});
+
 
 class ChartHandler {
   private dateFormat: string;
@@ -101,15 +122,17 @@ class ChartHandler {
   }
 
   updateLiveChart(data: Data) {
-    let chartToUpdate = 0;
+    const btLine = 0;
+    const wifiLine = 1;
+    let lineToUpdate = btLine;
     const isWifiData = data.sensor_type === "wifi";
 
     if (isWifiData) {
-      chartToUpdate = 1;
+      lineToUpdate = wifiLine;
     }
 
     // Append the new data to the existing chart data
-    liveChart.data.datasets[chartToUpdate].data.push({
+    liveChart.data.datasets[lineToUpdate].data.push({
       x: data.timestamp,
       y: data.devices_count
     });

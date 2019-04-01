@@ -1,6 +1,6 @@
+from easydict import EasyDict as edict
 from pymongo import MongoClient
 import configparser
-from datetime import datetime
 
 config = configparser.ConfigParser()
 config.read("config/config.ini")
@@ -21,7 +21,12 @@ class DatabaseHandler():
 
     def get_all(self):
         """Gets all data from the db"""
-        return list(self.collection.find({}, {"_id": False}))  # Return a list
+        all_bt = self.get_all_bt()
+        all_wifi = self.get_all_wifi()
+
+        data = edict({"bt_devices": all_bt,
+                      "wifi_devices": all_wifi})
+        return data
 
     def get_all_bt(self):
         """Gets all Bluetooth data from the db"""
@@ -33,16 +38,16 @@ class DatabaseHandler():
 
     def get_latest(self):
         """Gets the lastest entry from the db"""
-        latest_bt = self.get_latest_bt()[0]
-        latest_wifi = self.get_latest_wifi()[0]
+        latest_bt = self.get_latest_bt()
+        latest_wifi = self.get_latest_wifi()
         return [latest_bt, latest_wifi]  # Return a list
 
     def get_latest_bt(self):
         """Gets the lastest Bluetooth entry from the db"""
         return self.collection.find({"sensor_type": "bt"}, {"_id": False}).sort(
-            [("timestamp", -1)]).limit(1)
+            [("timestamp", -1)]).limit(1)[0]
 
     def get_latest_wifi(self):
         """Gets the lastest WiFi entry from the db"""
         return self.collection.find({"sensor_type": "wifi"}, {"_id": False}).sort(
-            [("timestamp", -1)]).limit(1)
+            [("timestamp", -1)]).limit(1)[0]

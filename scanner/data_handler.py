@@ -1,8 +1,8 @@
-import json
 from data_sender import DataSender
 from datetime import datetime
 from easydict import EasyDict as edict
 import configparser
+import json
 
 config = configparser.ConfigParser()
 config.read("config/config.ini")

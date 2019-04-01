@@ -25,7 +25,7 @@ class DataHandler:
         timestamp = str(datetime.now())
 
         data = edict({"devices_count": devices_count,
-                      "timestamp": timestamp, "area": PHYSICAL_AREA, "sensor": sensor_type})
+                      "timestamp": timestamp, "area": PHYSICAL_AREA, "sensor_type": sensor_type})
 
         json_data = json.dumps(data)  # Encode to JSON
         return json_data

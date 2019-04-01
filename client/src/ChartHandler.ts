@@ -13,10 +13,12 @@ const liveChart = new Chart(ctx, {
   data: {
     datasets: [{
       label: "Bluetooth",
-      data: []
+      data: [],
+      fill: false
     }, {
       label: "WiFi",
-      data: []
+      data: [],
+      fill: false
     }]
   },
   options: {
@@ -54,18 +56,21 @@ class ChartHandler {
   constructor() {
   }
 
-  initChart(data: any) {
-    let initDate = new Date();
+  initLiveChart(data: any) {
+    const initDate = new Date();
+    const delayTime = [[30, 5], [5, 5]];
 
-    liveChart.data.datasets[0].data.push({
-      x: initDate.setSeconds(initDate.getSeconds() - 30),
-      y: data[0].devices_count
-    });
+    for (let i = 0; i < data.length; i++) {
+      liveChart.data.datasets[i].data.push({
+        x: initDate.setSeconds(initDate.getSeconds() - delayTime[i][0]),
+        y: data[i].devices_count
+      });
 
-    liveChart.data.datasets[0].data.push({
-      x: initDate.setSeconds(initDate.getSeconds() + 5),
-      y: data[0].devices_count
-    });
+      liveChart.data.datasets[i].data.push({
+        x: initDate.setSeconds(initDate.getSeconds() + delayTime[i][1]),
+        y: data[i].devices_count
+      });
+    }
 
     // Update chart datasets keeping the current animation
     liveChart.update({
@@ -88,9 +93,16 @@ class ChartHandler {
   //   // console.log(dataList);
   // }
 
-  updateChart(data: Data) {
+  updateLiveChart(data: Data) {
+    let chartToUpdate = 0;
+    const isWifiData = data.sensor_type === "wifi";
+
+    if (isWifiData) {
+      chartToUpdate = 1;
+    }
+
     // Append the new data to the existing chart data
-    liveChart.data.datasets[0].data.push({
+    liveChart.data.datasets[chartToUpdate].data.push({
       x: data.timestamp,
       y: data.devices_count
     });

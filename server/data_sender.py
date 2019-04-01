@@ -1,4 +1,3 @@
-from db_handler import DatabaseHandler
 from data_handler import DataHandler
 import tornado.ioloop
 import tornado.web
@@ -13,10 +12,43 @@ WS_PORT = config.getint("DEFAULT", "WS_PORT")
 
 
 class GetAll(tornado.web.RequestHandler):
+    """Returns all the data to the client"""
+
+    def initialize(self, db_handler):
+        self.db_handler = db_handler
+
     def get(self):
-        """Sends all the data to the client"""
-        db_handler = DatabaseHandler()
-        data = db_handler.get_all()
+        data = self.db_handler.get_all()
+        json_data = DataHandler().to_json(data)
+        self.write(json_data)
+
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+
+
+class GetAllBt(tornado.web.RequestHandler):
+    """Returns all the Bluetooth data to the client"""
+
+    def initialize(self, db_handler):
+        self.db_handler = db_handler
+
+    def get(self):
+        data = self.db_handler.get_all_bt()
+        json_data = DataHandler().to_json(data)
+        self.write(json_data)
+
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+
+
+class GetAllWifi(tornado.web.RequestHandler):
+    """Returns all the WiFi data to the client"""
+
+    def initialize(self, db_handler):
+        self.db_handler = db_handler
+
+    def get(self):
+        data = self.db_handler.get_all_wifi()
         json_data = DataHandler().to_json(data)
         self.write(json_data)
 
@@ -25,10 +57,43 @@ class GetAll(tornado.web.RequestHandler):
 
 
 class GetLatest(tornado.web.RequestHandler):
+    """Returns the latest entry to the client"""
+
+    def initialize(self, db_handler):
+        self.db_handler = db_handler
+
     def get(self):
-        """Sends the latest entry to the client"""
-        db_handler = DatabaseHandler()
-        data = db_handler.get_latest()
+        data = self.db_handler.get_latest()
+        json_data = DataHandler().to_json(data)
+        self.write(json_data)
+
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+
+
+class GetLatestBt(tornado.web.RequestHandler):
+    """Returns the latest Bluetooth entry to the client"""
+
+    def initialize(self, db_handler):
+        self.db_handler = db_handler
+
+    def get(self):
+        data = self.db_handler.get_latest_bt()
+        json_data = DataHandler().to_json(data)
+        self.write(json_data)
+
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+
+
+class GetLatestWifi(tornado.web.RequestHandler):
+    """Returns the latest Bluetooth entry to the client"""
+
+    def initialize(self, db_handler):
+        self.db_handler = db_handler
+
+    def get(self):
+        data = self.db_handler.get_latest_wifi()
         json_data = DataHandler().to_json(data)
         self.write(json_data)
 

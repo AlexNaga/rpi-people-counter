@@ -1,5 +1,6 @@
 from data_listener import DataListener
-from data_sender import GetAll, GetLatest, WebSocketHandler
+from db_handler import DatabaseHandler
+from data_sender import GetAll, GetAllBt, GetAllWifi, GetLatest, GetLatestBt, GetLatestWifi, WebSocketHandler
 from tornado import ioloop, web
 import configparser
 
@@ -11,14 +12,16 @@ WS_PORT = config.getint("DEFAULT", "WS_PORT")
 
 
 def make_app():
-    return web.Application([
-        (r"/data/all", GetAll),
-        (r"/data/all/bt", GetAll),
-        (r"/data/all/wifi", GetAll),
+    db_handler = DatabaseHandler()
 
-        (r"/data/latest", GetLatest),
-        (r"/data/latest/bt", GetLatest),
-        (r"/data/latest/wifi", GetLatest),
+    return web.Application([
+        (r"/data/all", GetAll, {"db_handler": db_handler}),
+        (r"/data/all/bt", GetAllBt, {"db_handler": db_handler}),
+        (r"/data/all/wifi", GetAllWifi, {"db_handler": db_handler}),
+
+        (r"/data/latest", GetLatest, {"db_handler": db_handler}),
+        (r"/data/latest/bt", GetLatestBt, {"db_handler": db_handler}),
+        (r"/data/latest/wifi", GetLatestWifi, {"db_handler": db_handler}),
 
         (r"/ws", WebSocketHandler),
     ])

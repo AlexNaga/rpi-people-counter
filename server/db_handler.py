@@ -23,7 +23,26 @@ class DatabaseHandler():
         """Gets all data from the db"""
         return list(self.collection.find({}, {"_id": False}))  # Return a list
 
+    def get_all_bt(self):
+        """Gets all Bluetooth data from the db"""
+        return list(self.collection.find({"sensor_type": "bt"}, {"_id": False}))  # Return a list
+
+    def get_all_wifi(self):
+        """Gets all Wifi data from the db"""
+        return list(self.collection.find({"sensor_type": "wifi"}, {"_id": False}))  # Return a list
+
     def get_latest(self):
         """Gets the lastest entry from the db"""
-        return self.collection.find({}, {"_id": False}).sort(
+        latest_bt = self.get_latest_bt()[0]
+        latest_wifi = self.get_latest_wifi()[0]
+        return [latest_bt, latest_wifi]  # Return a list
+
+    def get_latest_bt(self):
+        """Gets the lastest Bluetooth entry from the db"""
+        return self.collection.find({"sensor_type": "bt"}, {"_id": False}).sort(
+            [("timestamp", -1)]).limit(1)
+
+    def get_latest_wifi(self):
+        """Gets the lastest WiFi entry from the db"""
+        return self.collection.find({"sensor_type": "wifi"}, {"_id": False}).sort(
             [("timestamp", -1)]).limit(1)

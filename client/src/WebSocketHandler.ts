@@ -20,7 +20,7 @@ class WebSocketHandler {
   onMessage(msg: MessageEvent) {
     const data: Data = JSON.parse(msg.data);
     const chartHandler = new ChartHandler();
-    chartHandler.updateChart(data);
+    chartHandler.updateLiveChart(data);
   }
 }
 

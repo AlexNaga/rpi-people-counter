@@ -24,10 +24,14 @@ const liveChart = new Chart(ctx, {
   options: {
     title: {
       display: true,
-      text: "Estimate of number of people in the area.",
+      text: "Estimate of the number of people in the area.",
     },
     scales: {
       xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: "Time"
+        },
         type: "realtime",
         realtime: {
           delay: delayInSeconds,
@@ -36,6 +40,11 @@ const liveChart = new Chart(ctx, {
         }
       }],
       yAxes: [{
+        display: true,
+        scaleLabel: {
+          display: true,
+          labelString: "# of People"
+        },
         ticks: {
           beginAtZero: true,
           callback: function (value) { if (value % 1 === 0) { return value; } },

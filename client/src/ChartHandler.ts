@@ -62,6 +62,14 @@ const liveChart = new Chart(ctx, {
         scheme: "tableau.ClassicCyclic13"
       }
     },
+    tooltips: {
+      mode: 'nearest',
+      intersect: false
+    },
+    hover: {
+      mode: 'nearest',
+      intersect: false
+    },
   }
 });
 

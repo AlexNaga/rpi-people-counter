@@ -32,6 +32,10 @@
   },
   "dependencies": {
     "@types/chart.js": "^2.7.50",
-    "browser-sync": "^2.26.3"
+    "browser-sync": "^2.26.3",
+    "chart.js": "^2.8.0",
+    "chartjs-plugin-colorschemes": "^0.3.0",
+    "chartjs-plugin-streaming": "^1.8.0",
+    "moment": "^2.24.0"
   }
 }

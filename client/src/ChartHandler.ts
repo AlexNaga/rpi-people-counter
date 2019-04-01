@@ -1,4 +1,7 @@
 import { Data } from "./DataInterface";
+import { Chart } from "chart.js";
+import "chartjs-plugin-streaming";
+import "chartjs-plugin-colorschemes";
 
 // Config
 const delayInSeconds = 30 * 1000;

@@ -5,12 +5,13 @@ from datetime import datetime
 
 def printStats(devices_count, sensor_type):
     time = datetime.now().strftime("%H:%M:%S")
-    print("%s | %d devices found | %s" % (time, devices_count, sensor_type))
+    print("%s | %d {:>4} devices found.".format(
+        sensor_type) % (time, devices_count))
 
 
 def main():
     scanner = Scanner()
-    scanner.start_bt()
+    # scanner.start_bt()
     data_handler = DataHandler()
 
     while True:

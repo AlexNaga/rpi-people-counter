@@ -24,3 +24,4 @@ config.ini
 2_run_scanner.sh
 1_run_server.sh
 3_run_listener.sh
+4_run_client.sh

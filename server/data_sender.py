@@ -16,9 +16,8 @@ class GetAll(tornado.web.RequestHandler):
     def get(self):
         """Sends all the data to the client"""
         db_handler = DatabaseHandler()
-        data_handler = DataHandler()
         data = db_handler.get_all()
-        json_data = data_handler.to_json(data)
+        json_data = DataHandler().to_json(data)
         self.write(json_data)
 
     def set_default_headers(self):
@@ -29,9 +28,8 @@ class GetLatest(tornado.web.RequestHandler):
     def get(self):
         """Sends the latest entry to the client"""
         db_handler = DatabaseHandler()
-        data_handler = DataHandler()
         data = db_handler.get_latest()
-        json_data = data_handler.to_json(data)
+        json_data = DataHandler().to_json(data)
         self.write(json_data)
 
     def set_default_headers(self):

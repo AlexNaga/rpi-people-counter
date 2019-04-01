@@ -13,7 +13,13 @@ WS_PORT = config.getint("DEFAULT", "WS_PORT")
 def make_app():
     return web.Application([
         (r"/data/all", GetAll),
+        (r"/data/all/bt", GetAll),
+        (r"/data/all/wifi", GetAll),
+
         (r"/data/latest", GetLatest),
+        (r"/data/latest/bt", GetLatest),
+        (r"/data/latest/wifi", GetLatest),
+
         (r"/ws", WebSocketHandler),
     ])
 

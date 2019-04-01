@@ -15,10 +15,12 @@ class Scanner:
             duration=SECONDS_BETWEEN_BT_SCANS))
         return bt_devices_count
 
-    def find_wifi_devices(self):
+    def count_wifi_devices(self):
         """Scans for nearby WiFi devices"""
         # TODO: Implement this
-        return None
+        from random import randint
+        randomNumber = randint(0, 3)
+        return randomNumber
 
     def start_bt(self):
         """Starts the Bluetooth device"""

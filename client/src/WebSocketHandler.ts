@@ -2,12 +2,12 @@ import { ChartHandler } from "./ChartHandler";
 import { Data } from "./DataInterface";
 
 class WebSocketHandler {
-  ws: WebSocket;
-  chartHandler: ChartHandler;
+  private ws: WebSocket;
+  private chartHandler: ChartHandler;
 
-  constructor(url: string) {
+  constructor(url: string, chartHandler: ChartHandler) {
     this.ws = new WebSocket(url);
-    this.chartHandler = new ChartHandler();
+    this.chartHandler = chartHandler;
   }
 
   connect() {

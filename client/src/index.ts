@@ -13,9 +13,9 @@ const WS_URL = `ws://${SERVER}:${PORT}/ws`;
 window.onload = () => {
   const chartHandler = new ChartHandler();
   const dataHandler = new DataHandler(SERVER_URL);
-  const wsHandler = new WebSocketHandler(WS_URL);
+  const wsHandler = new WebSocketHandler(WS_URL, chartHandler);
 
   wsHandler.connect();
-  dataHandler.getLatest().then(init_data => chartHandler.initLiveChart(init_data));
-  // dataHandler.getAllData().then(data => console.log(data));
+  dataHandler.getLatest().then(initData => chartHandler.initLiveChart(initData));
+  dataHandler.getAllData().then(initData => chartHandler.initPieChart(initData));
 };

@@ -19,7 +19,7 @@ class Scanner:
         """Scans for nearby WiFi devices"""
         # TODO: Implement this
         from random import randint
-        randomNumber = randint(2, 4)
+        randomNumber = randint(2, 3)
         return randomNumber
 
     def start_bt(self):

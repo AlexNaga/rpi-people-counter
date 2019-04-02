@@ -8,13 +8,9 @@ import * as moment from "moment";
 Chart.plugins.unregister(ChartDataLabels);
 
 class ChartHandler {
-  private dateFormat: string;
+  private dateFormat = "YYYY-MM-DD H:mm:ss"; // 2019-04-01 16:17:26
   private liveChart: Chart;
   private pieChart: Chart;
-
-  constructor() {
-    this.dateFormat = "YYYY-MM-DD H:mm:ss"; // 2019-04-01 16:17:26
-  }
 
   initLiveChart(data: Data) {
     // Config for the chart animation
@@ -129,9 +125,9 @@ class ChartHandler {
 
   // Detection rate of Bluetooth and Wifi
   initPieChart(data: any) {
-    const bt_devices_count = data.bt_devices.length;
-    const wifi_devices_count = data.wifi_devices.length;
-    const total_devices_count = bt_devices_count + wifi_devices_count;
+    const btDevicesCount = data.bt_devices_count;
+    const wifiDevicesCount = data.wifi_devices_count;
+    const totalDevicesCount = btDevicesCount + wifiDevicesCount;
 
     const pieCanvas = <HTMLCanvasElement>document.getElementById("pieChart");
     const pieCtx = pieCanvas.getContext("2d");
@@ -140,7 +136,7 @@ class ChartHandler {
       plugins: [ChartDataLabels],
       data: {
         datasets: [{
-          data: [bt_devices_count, wifi_devices_count],
+          data: [btDevicesCount, wifiDevicesCount],
           fill: false,
         }],
         labels: [
@@ -156,8 +152,8 @@ class ChartHandler {
         plugins: {
           datalabels: {
             color: "#FFF",
-            formatter: function (value, context) {
-              const percentage = Math.round((value / total_devices_count * 100) * 100) / 100;
+            formatter: (value: number, context: object) => {
+              const percentage = Math.round((value / totalDevicesCount * 100) * 100) / 100;
               return percentage + "%";
             }
           }
@@ -166,15 +162,34 @@ class ChartHandler {
     });
   }
 
-  updatePieChart() {
-    this.pieChart.data.datasets.forEach((dataset) => {
-      dataset.data.push(50, 50, 20, 3);
-    });
-    this.pieChart.update(
-      {
-        preservation: true
+  updatePieChart(data: any) {
+    const btDevicesCount = data.bt_devices_count;
+    const wifiDevicesCount = data.wifi_devices_count;
+    const totalDevicesCount = btDevicesCount + wifiDevicesCount;
+    const pieSlices = this.pieChart.data.datasets[0].data;
+    const btSlice = 0;
+    const wifiSlice = 1;
+    pieSlices[btSlice] = btDevicesCount;
+    pieSlices[wifiSlice] = wifiDevicesCount;
+    console.log(pieSlices);
+    
+
+    this.pieChart.options = {
+      title: {
+        display: true,
+        text: "Overall detection rate of Bluetooth vs WiFi."
+      },
+      plugins: {
+        datalabels: {
+          color: "#FFF",
+          formatter: (value: number, context: object) => {
+            const percentage = Math.round((value / totalDevicesCount * 100) * 100) / 100;
+            return percentage + "%";
+          }
+        }
       }
-    );
+    }
+    this.pieChart.update({ preservation: false });
   }
 }
 

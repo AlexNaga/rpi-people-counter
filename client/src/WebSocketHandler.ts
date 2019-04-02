@@ -1,4 +1,5 @@
 import { ChartHandler } from "./ChartHandler";
+import { DataHandler } from "./DataHandler";
 import { Data } from "./DataInterface";
 
 class WebSocketHandler {

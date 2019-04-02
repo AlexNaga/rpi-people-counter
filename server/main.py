@@ -1,6 +1,7 @@
 from data_listener import DataListener
 from db_handler import DatabaseHandler
-from data_sender import GetAll, GetAllBt, GetAllWifi, GetLatest, GetLatestBt, GetLatestWifi, WebSocketHandler
+from data_sender import GetAll, GetAllBt, GetAllWifi, GetLatest, GetLatestBt, GetLatestWifi
+from data_sender import GetCountStats, WebSocketHandler
 from tornado import ioloop, web
 import configparser
 
@@ -18,11 +19,10 @@ def make_app():
         (r"/data/all", GetAll, {"db_handler": db_handler}),
         (r"/data/all/bt", GetAllBt, {"db_handler": db_handler}),
         (r"/data/all/wifi", GetAllWifi, {"db_handler": db_handler}),
-
         (r"/data/latest", GetLatest, {"db_handler": db_handler}),
         (r"/data/latest/bt", GetLatestBt, {"db_handler": db_handler}),
         (r"/data/latest/wifi", GetLatestWifi, {"db_handler": db_handler}),
-
+        (r"/data/stats", GetCountStats, {"db_handler": db_handler}),
         (r"/ws", WebSocketHandler),
     ])
 

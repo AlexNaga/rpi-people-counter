@@ -1,6 +1,7 @@
 from data_handler import DataHandler
 from db_handler import DatabaseHandler
 from tornado import gen, ioloop, websocket
+import copy
 import configparser
 import paho.mqtt.client as mqtt
 
@@ -52,11 +53,11 @@ class DataListener:
         if devices_found:
             self.db_handler.add(data)
 
-        ioloop.IOLoop.instance().run_sync(forward_data_to_ws(payload))
+        ioloop.IOLoop.current().run_sync(forward_data_to_ws(payload))
 
 
 @gen.coroutine
-def forward_data_to_ws(data):
+async def forward_data_to_ws(data):
     client = yield websocket.websocket_connect("ws://%s:%s/ws" % (WS_SERVER, WS_PORT))
     client.write_message(data)
     client.close()

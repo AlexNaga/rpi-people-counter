@@ -40,6 +40,15 @@ class DataHandler {
     const data = await response.json();
     return data;
   }
+
+  async getStats() {
+    const response = await fetch(this.url + "/stats");
+    const data = await response.json();
+    return data;
+  }
+
+  // Checks if any device found
+  static isDeviceFound(devicesCount: number) { return devicesCount > 0 }
 }
 
 export { DataHandler };

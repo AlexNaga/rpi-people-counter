@@ -1,4 +1,5 @@
 from data_handler import DataHandler
+from easydict import EasyDict as edict
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
@@ -94,6 +95,27 @@ class GetLatestWifi(tornado.web.RequestHandler):
 
     def get(self):
         data = self.db_handler.get_latest_wifi()
+        json_data = DataHandler().to_json(data)
+        self.write(json_data)
+
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+
+
+class GetCountStats(tornado.web.RequestHandler):
+    """Returns count stats to the client"""
+
+    def initialize(self, db_handler):
+        self.db_handler = db_handler
+
+    def get(self):
+        data = self.db_handler.get_all()
+        bt_devices_count = len(data.bt_devices)
+        wifi_devices_count = len(data.wifi_devices)
+        total_devices_count = bt_devices_count + wifi_devices_count
+
+        data = edict({"total_devices_count": total_devices_count, "bt_devices_count": bt_devices_count,
+                      "wifi_devices_count": wifi_devices_count})
         json_data = DataHandler().to_json(data)
         self.write(json_data)
 

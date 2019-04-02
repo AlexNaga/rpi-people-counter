@@ -53,11 +53,13 @@ class DataListener:
         if devices_found:
             self.db_handler.add(data)
 
-        ioloop.IOLoop.current().run_sync(forward_data_to_ws(payload))
-
+        try:
+            ioloop.IOLoop.instance().run_sync(forward_data_to_ws(payload))
+        except Exception as e:
+            pass
 
 @gen.coroutine
-async def forward_data_to_ws(data):
+def forward_data_to_ws(data):
     client = yield websocket.websocket_connect("ws://%s:%s/ws" % (WS_SERVER, WS_PORT))
     client.write_message(data)
     client.close()

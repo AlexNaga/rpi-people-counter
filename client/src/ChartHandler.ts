@@ -1,6 +1,7 @@
 import { Chart } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Data } from "./DataInterface";
+import { DataHandler } from "./DataHandler";
 import "chartjs-plugin-colorschemes";
 import "chartjs-plugin-streaming";
 import * as moment from "moment";
@@ -11,6 +12,11 @@ class ChartHandler {
   private dateFormat = "YYYY-MM-DD H:mm:ss"; // 2019-04-01 16:17:26
   private liveChart: Chart;
   private pieChart: Chart;
+  private dataHandler: DataHandler;
+
+  constructor(dataHandler: DataHandler) {
+    this.dataHandler = dataHandler;
+  }
 
   initLiveChart(data: Data) {
     // Config for the chart animation
@@ -137,7 +143,6 @@ class ChartHandler {
       data: {
         datasets: [{
           data: [btDevicesCount, wifiDevicesCount],
-          fill: false,
         }],
         labels: [
           "Bluetooth",
@@ -166,13 +171,12 @@ class ChartHandler {
     const btDevicesCount = data.bt_devices_count;
     const wifiDevicesCount = data.wifi_devices_count;
     const totalDevicesCount = btDevicesCount + wifiDevicesCount;
+
     const pieSlices = this.pieChart.data.datasets[0].data;
     const btSlice = 0;
     const wifiSlice = 1;
     pieSlices[btSlice] = btDevicesCount;
     pieSlices[wifiSlice] = wifiDevicesCount;
-    console.log(pieSlices);
-    
 
     this.pieChart.options = {
       title: {
@@ -190,6 +194,17 @@ class ChartHandler {
       }
     }
     this.pieChart.update({ preservation: false });
+  }
+
+  private sleep(seconds: number) {
+    seconds = seconds * 1000;
+    return new Promise(resolve => setTimeout(resolve, seconds));
+  }
+
+  async loopPieChartUpdate() {
+    this.dataHandler.getStats().then(stats => this.updatePieChart(stats));
+    await this.sleep(5);
+    this.loopPieChartUpdate() // Recursive call
   }
 }
 

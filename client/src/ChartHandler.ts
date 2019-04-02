@@ -131,6 +131,12 @@ class ChartHandler {
   initPieChart(data: any) {
     const bt_devices_count = data.bt_devices.length;
     const wifi_devices_count = data.wifi_devices.length;
+    const total_devices_count = bt_devices_count + wifi_devices_count;
+    const bt_devices_percentage = Math.round((bt_devices_count / total_devices_count * 100) * 100) / 100;
+    const wifi_devices_percentage = Math.round((wifi_devices_count / total_devices_count * 100) * 100) / 100;
+
+    console.log("bt_devices_percentage: " + bt_devices_percentage);
+    console.log("wifi_devices_percentage: " + wifi_devices_percentage);
 
     const pieCanvas = <HTMLCanvasElement>document.getElementById("pieChart");
     const pieCtx = pieCanvas.getContext("2d");

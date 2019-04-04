@@ -55,8 +55,14 @@ class DataListener:
 
         try:
             ioloop.IOLoop.instance().run_sync(forward_data_to_ws(payload))
-        except Exception as e:
-            pass
+        except asyncio.CancelledError:
+            print('Tasks has been canceled')
+        finally:
+            ioloop.IOLoop.close()
+        # except Exception as e:
+            # pass
+
+
 
 @gen.coroutine
 def forward_data_to_ws(data):

@@ -1,5 +1,5 @@
-import subprocess
 import bluetooth
+import subprocess
 import configparser
 
 config = configparser.ConfigParser()
@@ -22,9 +22,18 @@ class Scanner:
         randomNumber = randint(2, 3)
         return randomNumber
 
-    def start_bt(self):
-        """Starts the Bluetooth device"""
+    def start_monitor_mode(self):
+        """Starts the WiFi monitor mode"""
+        # TODO: Implement this
         try:
-            subprocess.check_output(['./scripts/start_bt.sh'])
+            subprocess.check_output(["./scripts/start_monitor_mode.sh"])
         except subprocess.CalledProcessError:
-            print("Error: Couldn't start the Bluetooth device")
+            print("Error: Couldn't start the monitor mode.")
+
+    def exit_monitor_mode(self):
+        """Exits the WiFi monitor mode"""
+        # TODO: Implement this
+        try:
+            subprocess.check_output(["./scripts/exit_monitor_mode.sh"])
+        except subprocess.CalledProcessError:
+            print("Error: Couldn't exit the monitor mode.")

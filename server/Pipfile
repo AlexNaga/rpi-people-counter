@@ -9,8 +9,9 @@ verify_ssl = true
 paho-mqtt = "*"
 pymongo = "*"
 configparser = "*"
-tornado = "*"
 easydict = "*"
+flask = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.7"

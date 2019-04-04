@@ -1584,18 +1584,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 
 /***/ }),
 
-/***/ "./src/WebSocketHandler.ts":
-/*!*********************************!*\
-  !*** ./src/WebSocketHandler.ts ***!
-  \*********************************/
-/*! exports provided: WebSocketHandler */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"WebSocketHandler\", function() { return WebSocketHandler; });\nvar WebSocketHandler = /** @class */ (function () {\n    function WebSocketHandler(url, chartHandler) {\n        this.ws = new WebSocket(url);\n        this.chartHandler = chartHandler;\n    }\n    WebSocketHandler.prototype.connect = function () {\n        this.ws.onopen = this.onOpen;\n        this.ws.onmessage = this.onMessage.bind(this);\n    };\n    WebSocketHandler.prototype.onOpen = function () {\n        console.log(\"Connected to ws.\");\n    };\n    WebSocketHandler.prototype.onMessage = function (msg) {\n        var data = JSON.parse(msg.data);\n        this.chartHandler.updateLiveChart(data);\n    };\n    return WebSocketHandler;\n}());\n\n\n\n//# sourceURL=webpack:///./src/WebSocketHandler.ts?");
-
-/***/ }),
-
 /***/ "./src/index.ts":
 /*!**********************!*\
   !*** ./src/index.ts ***!
@@ -1604,7 +1592,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ChartHandler__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ChartHandler */ \"./src/ChartHandler.ts\");\n/* harmony import */ var _DataHandler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DataHandler */ \"./src/DataHandler.ts\");\n/* harmony import */ var _WebSocketHandler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./WebSocketHandler */ \"./src/WebSocketHandler.ts\");\n\n\n\n// Config \nvar SERVER = \"localhost\";\nvar PORT = 8000;\nvar SERVER_URL = \"http://\" + SERVER + \":\" + PORT + \"/data\";\nvar WS_URL = \"ws://\" + SERVER + \":\" + PORT + \"/ws\";\nwindow.onload = function () {\n    var dataHandler = new _DataHandler__WEBPACK_IMPORTED_MODULE_1__[\"DataHandler\"](SERVER_URL);\n    var chartHandler = new _ChartHandler__WEBPACK_IMPORTED_MODULE_0__[\"ChartHandler\"](dataHandler);\n    var wsHandler = new _WebSocketHandler__WEBPACK_IMPORTED_MODULE_2__[\"WebSocketHandler\"](WS_URL, chartHandler);\n    wsHandler.connect();\n    dataHandler.getLatest().then(function (data) { return chartHandler.initLiveChart(data); });\n    dataHandler.getStats().then(function (data) { return chartHandler.initPieChart(data); });\n    chartHandler.loopPieChartUpdate();\n};\n\n\n//# sourceURL=webpack:///./src/index.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ChartHandler__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ChartHandler */ \"./src/ChartHandler.ts\");\n/* harmony import */ var _DataHandler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DataHandler */ \"./src/DataHandler.ts\");\n\n\n// Config \nvar SERVER = \"localhost\";\nvar PORT = 5000;\nvar SERVER_URL = \"http://\" + SERVER + \":\" + PORT + \"/data\";\nvar WS_URL = \"ws://\" + SERVER + \":\" + PORT + \"/ws\";\nwindow.onload = function () {\n    // TODO: NEED TO SPECIFY WHICH SERVER TO CONNECT TO!\n    // let eventSource = new EventSource(\"/stream\")\n    // eventSource.onmessage = function (msg) {\n    //   console.log(\"Got a Server-sent-event!\");\n    //   console.log(msg);\n    // };\n    var dataHandler = new _DataHandler__WEBPACK_IMPORTED_MODULE_1__[\"DataHandler\"](SERVER_URL);\n    var chartHandler = new _ChartHandler__WEBPACK_IMPORTED_MODULE_0__[\"ChartHandler\"](dataHandler);\n    // const wsHandler = new WebSocketHandler(WS_URL, chartHandler);\n    // wsHandler.connect();\n    dataHandler.getLatest().then(function (data) { return chartHandler.initLiveChart(data); });\n    dataHandler.getStats().then(function (data) { return chartHandler.initPieChart(data); });\n    chartHandler.loopPieChartUpdate();\n};\n\n\n//# sourceURL=webpack:///./src/index.ts?");
 
 /***/ })
 

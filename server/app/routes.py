@@ -1,9 +1,9 @@
-from data_handler import DataHandler
-from db_handler import DatabaseHandler
+from .data_handler import DataHandler
+from .db_handler import DatabaseHandler
 from easydict import EasyDict as edict
 from flask import Blueprint
 
-data_api = Blueprint('data_api', __name__)
+data_api = Blueprint("data_api", __name__)
 db_handler = DatabaseHandler()
 
 

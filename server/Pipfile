@@ -12,6 +12,11 @@ configparser = "*"
 easydict = "*"
 flask = "*"
 flask-cors = "*"
+redis = "*"
+flask-sse = "*"
+gunicorn = "*"
+gevent = "*"
+flask-mqtt = "*"
 
 [requires]
 python_version = "3.7"

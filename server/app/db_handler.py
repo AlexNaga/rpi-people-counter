@@ -1,4 +1,4 @@
-from easydict import EasyDict as edict
+from easydict import EasyDict
 from pymongo import MongoClient
 import configparser
 
@@ -24,7 +24,7 @@ class DatabaseHandler():
         all_bt = self.get_all_bt()
         all_wifi = self.get_all_wifi()
 
-        data = edict({"bt_devices": all_bt,
+        data = EasyDict({"bt_devices": all_bt,
                       "wifi_devices": all_wifi})
         return data
 

@@ -34,10 +34,6 @@ class DataListener:
         self.data_handler = DataHandler()
         self.db_handler = DatabaseHandler()
 
-    @mqtt.on_connect()
-    def handle_connect(self, client, userdata, flags, rc):
-        print("ALEX")
-        mqtt.subscribe(self.physical_area)
 
     # def start(self):
     #     """Listens for data from the MQTT broker"""

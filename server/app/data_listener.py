@@ -2,7 +2,6 @@ from app import mqtt
 from .data_handler import DataHandler
 from .db_handler import DatabaseHandler
 from flask import Blueprint, Response
-import time
 import redis
 import configparser
 
@@ -19,9 +18,6 @@ events_api = Blueprint("events_api", __name__)
 
 red = redis.StrictRedis(host=REDIS_SERVER, port=REDIS_PORT,
                         decode_responses=True)
-
-# red_pubsub = red.pubsub(ignore_subscribe_messages=True)
-# red_pubsub.subscribe("events")
 
 data_handler = DataHandler()
 db_handler = DatabaseHandler()
@@ -51,29 +47,10 @@ def mqtt_on_message(client, userdata, msg):
         db_handler.add(data)
 
 
-# def send_event():
-#     print("sub to redis")
-
-#     msg = red_pubsub.get_message()
-#     if msg:
-#         print(msg)
-#         yield str(msg)
-#         time.sleep(0.001)  # Let's be nice to the system
-
-
-# @events_api.route("/data/events")
-# def event():
-#     return Response(
-#         send_event(),
-#         mimetype="text/event-stream"
-#     )
-
-
 def send_event():
-    pubsub = red.pubsub()
+    pubsub = red.pubsub(ignore_subscribe_messages=True)
     pubsub.subscribe("events")
     for msg in pubsub.listen():
-        print(msg)
         yield "data: %s\n\n" % msg["data"]
 
 

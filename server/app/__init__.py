@@ -17,14 +17,12 @@ def create_app():
     app = Flask(__name__)
     CORS(app)
 
+    time_in_seconds = 1
+    app.config["MQTT_REFRESH_TIME"] = time_in_seconds
     app.config["MQTT_BROKER_URL"] = MQTT_SERVER
     app.config["MQTT_BROKER_PORT"] = MQTT_PORT
 
-    time_in_seconds = 1
-    app.config["MQTT_REFRESH_TIME"] = time_in_seconds
-
     app.register_blueprint(data_api)
-
     mqtt.init_app(app)
 
     from .data_listener import events_api

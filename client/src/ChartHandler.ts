@@ -20,7 +20,7 @@ class ChartHandler {
 
   initLiveChart(data: Data) {
     // Config for the chart animation
-    const delayInSeconds = 30 * 1000;
+    const delayInSeconds = 10 * 1000;
     const ttlInSeconds = 90 * 1000;
     const durationInSeconds = 40 * 1000;
 
@@ -88,7 +88,7 @@ class ChartHandler {
     });
 
     let initDate = moment().format(this.dateFormat);
-    const animDelayInSeconds = [30, 25, 20];
+    const animDelayInSeconds = [10, 5];
 
     // Add "buffer" ticks for a smoother init of the chart
     for (let i = 0; i < data.length; i++) {

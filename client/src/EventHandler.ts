@@ -1,23 +1,22 @@
 import { ChartHandler } from "./ChartHandler";
-import { DataHandler } from "./DataHandler";
 import { Data } from "./DataInterface";
 
-class WebSocketHandler {
-  private ws: WebSocket;
+class EventHandler {
+  private eventSource: EventSource;
   private chartHandler: ChartHandler;
 
   constructor(url: string, chartHandler: ChartHandler) {
-    this.ws = new WebSocket(url);
+    this.eventSource = new EventSource(url + "/events")
     this.chartHandler = chartHandler;
   }
 
   connect() {
-    this.ws.onopen = this.onOpen;
-    this.ws.onmessage = this.onMessage.bind(this);
+    this.eventSource.onopen = this.onOpen;
+    this.eventSource.onmessage = this.onMessage.bind(this);
   }
 
   private onOpen() {
-    console.log("Connected to ws.");
+    console.log("Connected to SSE.");
   }
 
   private onMessage(msg: MessageEvent) {
@@ -26,4 +25,4 @@ class WebSocketHandler {
   }
 }
 
-export { WebSocketHandler };
+export { EventHandler };

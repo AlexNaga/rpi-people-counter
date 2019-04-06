@@ -55,6 +55,14 @@ class ChartHandler {
               delay: delayInSeconds,
               duration: durationInSeconds,
               ttl: ttlInSeconds,
+            },
+            time: {
+              unitStepSize: 10,
+              displayFormats: {
+                hour: "HH",
+                minute: "HH:mm",
+                second: "HH:mm:ss"
+              }
             }
           }],
           yAxes: [{

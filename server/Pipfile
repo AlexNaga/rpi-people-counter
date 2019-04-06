@@ -6,17 +6,16 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-paho-mqtt = "*"
 pymongo = "*"
 configparser = "*"
 easydict = "*"
 flask = "*"
 flask-cors = "*"
 redis = "*"
-flask-sse = "*"
 gunicorn = "*"
 gevent = "*"
 flask-mqtt = "*"
+paho-mqtt = "*"
 
 [requires]
 python_version = "3.7"

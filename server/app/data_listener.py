@@ -1,16 +1,10 @@
+from app import mqtt
 from .data_handler import DataHandler
 from .db_handler import DatabaseHandler
 from flask import Blueprint, Response
-from flask_sse import sse
-
-# import paho.mqtt.client as mqtt
+import time
+import redis
 import configparser
-# import redis
-import json
-
-# from app import mqtt
-
-events_api = Blueprint("events_api", __name__)
 
 config = configparser.ConfigParser()
 config.read("config/config.ini")
@@ -18,55 +12,74 @@ config.read("config/config.ini")
 # The location to receive data from
 PHYSICAL_AREA = config.get("DEFAULT", "PHYSICAL_AREA")
 
-MQTT_SERVER = config.get("DEFAULT", "MQTT_SERVER")
-MQTT_PORT = config.getint("DEFAULT", "MQTT_PORT")
+REDIS_SERVER = config.get("DEFAULT", "REDIS_SERVER")
+REDIS_PORT = config.getint("DEFAULT", "REDIS_PORT")
+
+events_api = Blueprint("events_api", __name__)
+
+red = redis.StrictRedis(host=REDIS_SERVER, port=REDIS_PORT,
+                        decode_responses=True)
+
+# red_pubsub = red.pubsub(ignore_subscribe_messages=True)
+# red_pubsub.subscribe("events")
+
+data_handler = DataHandler()
+db_handler = DatabaseHandler()
 
 
-class DataListener:
-    def __init__(self, physical_area):
-        self.physical_area = physical_area
-
-        # self.mqtt = Mqtt(app)
-
-        # Connect to the MQTT broker
-        # self.mqttc.connect(MQTT_SERVER, MQTT_PORT)
-
-        self.data_handler = DataHandler()
-        self.db_handler = DatabaseHandler()
+@mqtt.on_connect()
+def mqtt_on_connect(client, userdata, flags, rc):
+    """Event handler for MQTT connection"""
+    print("Connected to the broker with status code " + str(rc))
+    mqtt.subscribe(PHYSICAL_AREA + "/+")
 
 
-    # def start(self):
-    #     """Listens for data from the MQTT broker"""
-    #     self.mqttc.on_connect = self.on_connect
-    #     self.mqttc.on_message = self.on_message
-    #     self.mqttc.loop_forever()  # Blocking loop to the broker
+@mqtt.on_message()
+def mqtt_on_message(client, userdata, msg):
+    """Event handler for MQTT message"""
+    json_data = msg.payload.decode("utf-8")
+    data = data_handler.from_json(json_data)
 
-    # def on_connect(self, client, userdata, flags, rc):
-    #     """Event handler for MQTT connection"""
-    #     print("Connected to the broker with status code "+str(rc))
-    #     client.subscribe(self.physical_area + "/+")
+    # Publish the data to the Redis db
+    red.publish("events", json_data)
 
-    # def on_message(self, client, userdata, msg):
-    #     """Event handler for MQTT message"""
-    #     payload = msg.payload.decode("utf-8")
-    #     data = self.data_handler.from_json(payload)
+    devices_count = data["devices_count"]
+    devices_found = data_handler.is_device_found(devices_count)
 
-    #     # Publish the data to the Redis database
-    #     # red.publish("event", payload)
-
-    #     # Send the data to client as Server-sent event
-    #     print("a")
-    #     sse.publish({"message": "Hello!3"}, type='greeting')
-    #     print("b")
-
-    #     devices_count = data["devices_count"]
-    #     devices_found = self.data_handler.is_device_found(devices_count)
-
-    #     # Only save to db if devices found
-    #     if devices_found:
-    #         self.db_handler.add(data)
+    # Only save to db if devices found
+    if devices_found:
+        db_handler.add(data)
 
 
-# if __name__ == "__main__":
-    # data_listener = DataListener(PHYSICAL_AREA)
-    # data_listener.start()
+# def send_event():
+#     print("sub to redis")
+
+#     msg = red_pubsub.get_message()
+#     if msg:
+#         print(msg)
+#         yield str(msg)
+#         time.sleep(0.001)  # Let's be nice to the system
+
+
+# @events_api.route("/data/events")
+# def event():
+#     return Response(
+#         send_event(),
+#         mimetype="text/event-stream"
+#     )
+
+
+def send_event():
+    pubsub = red.pubsub()
+    pubsub.subscribe("events")
+    for msg in pubsub.listen():
+        print(msg)
+        yield "data: %s\n\n" % msg["data"]
+
+
+@events_api.route("/data/events")
+def sse():
+    """Sends the data to client as Server-sent event"""
+    return Response(
+        send_event(),
+        mimetype="text/event-stream")

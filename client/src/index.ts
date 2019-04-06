@@ -19,25 +19,14 @@ window.onload = () => {
   // dataHandler.getStats().then(data => chartHandler.initPieChart(data));
   // chartHandler.loopPieChartUpdate();
 
-  // let eventSource = new EventSource(`${SERVER_URL}/events`)
-  // eventSource.onmessage = (msg: MessageEvent) => {
-  //   console.log("Got a Server-sent-event!");
-  //   console.log(msg);
+  let eventSource = new EventSource(`${SERVER_URL}/events`)
+  eventSource.onmessage = (msg: MessageEvent) => {
+    console.log("Got a Server-sent-event!");
+    console.log(msg);
 
-  var source = new EventSource(`${SERVER_URL}/events`);
-  source.addEventListener('greeting', function (event) {
-    console.log("Got a message");
+    // TODO: Convert to JSON?
+    // let data = JSON.parse(msg.data);
+    // console.log(data);
 
-    var data = JSON.parse(event.data);
-    // do what you want with this data
-    console.log(data);
-    
-  }, false);
-
-  // TODO: Convert to JSON?
-
-  // const data = JSON.parse(msg.data);
-  // console.log(data);
-
-  // };
+  };
 };

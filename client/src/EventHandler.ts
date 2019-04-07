@@ -4,6 +4,7 @@ import { Data } from "./DataInterface";
 class EventHandler {
   private eventSource: EventSource;
   private chartHandler: ChartHandler;
+  private tmpList = [];
 
   constructor(url: string, chartHandler: ChartHandler) {
     this.eventSource = new EventSource(url + "/events")
@@ -22,6 +23,14 @@ class EventHandler {
   private onMessage(msg: MessageEvent) {
     const data: Data = JSON.parse(msg.data);
     this.chartHandler.updateLiveChart(data);
+
+    this.tmpList.push(data);
+    let isTwoItems = this.tmpList.length === 2;
+
+    if (isTwoItems) {
+      this.chartHandler.updateBarChart(this.tmpList);
+      this.tmpList = [];
+    }
   }
 }
 

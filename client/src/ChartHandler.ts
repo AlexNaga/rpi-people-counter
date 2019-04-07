@@ -20,9 +20,6 @@ class ChartHandler {
   }
 
   initLiveChart(data: Data) {
-
-    console.log(data);
-
     // Config for the chart animation
     const delayInSeconds = 10 * 1000;
     const ttlInSeconds = 90 * 1000;
@@ -153,6 +150,7 @@ class ChartHandler {
   updateLiveChart(data: Data) {
     const btLine = 0;
     const wifiLine = 1;
+    const peopleBar = 2;
     let lineToUpdate = btLine;
     const isWifiData = data.sensor_type === "wifi";
 
@@ -162,6 +160,22 @@ class ChartHandler {
 
     // Append the new data to the existing chart data
     this.liveChart.data.datasets[lineToUpdate].data.push({
+      x: data.timestamp,
+      y: data.devices_count
+    });
+
+    // Update chart datasets keeping the current animation
+    this.liveChart.update({
+      preservation: true
+    });
+  }
+
+  updateBarChart(data: Data) {
+    console.log(data);
+    const peopleBar = 2;
+
+    // Append the new data to the existing chart data
+    this.liveChart.data.datasets[peopleBar].data.push({
       x: data.timestamp,
       y: data.devices_count
     });

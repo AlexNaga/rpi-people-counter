@@ -25,21 +25,30 @@ class ChartHandler {
     const btDevicesCount = data[0].devices_count;
     const wifiDevicesCount = data[1].devices_count;
     const peopleEstimate = btDevicesCount + wifiDevicesCount;
-    let pplEstimateDiv = document.getElementById("peopleEstimate");
+    const percentOfSmartphoneOwners = 0.9;
+    const peopleEstimateCorr = Math.round((peopleEstimate / percentOfSmartphoneOwners)).toString();
+
+    const peopleDiv = document.getElementById("peopleEstimate");
+    const peopleCorrDiv = document.getElementById("peopleEstimateCorr");
     let txt = "";
+    let txtWithCorr = "";
 
     switch (peopleEstimate) {
       case 0:
         txt = "Could not detect any devices in the area.";
+        txtWithCorr = txt;
         break;
       case 1:
         txt = "There is about 1 person in the area.";
+        txtWithCorr = txt;
         break;
       default:
         txt = `There are about ${peopleEstimate} people in the area.`;
+        txtWithCorr = `There are about ${peopleEstimateCorr} people in the area.`;
         break;
     }
-    pplEstimateDiv.textContent = txt;
+    peopleDiv.textContent = txt;
+    peopleCorrDiv.textContent = txtWithCorr;
   }
 
 

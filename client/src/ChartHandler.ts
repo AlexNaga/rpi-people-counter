@@ -7,6 +7,8 @@ import "chartjs-plugin-streaming";
 import * as moment from "moment";
 
 Chart.plugins.unregister(ChartDataLabels);
+Chart.defaults.global.defaultFontFamily = "'Ubuntu', 'Cantarell'";
+Chart.defaults.global.defaultFontSize = 13;
 
 class ChartHandler {
   private dateFormat = "YYYY-MM-DD H:mm:ss"; // 2019-04-01 13:20:45

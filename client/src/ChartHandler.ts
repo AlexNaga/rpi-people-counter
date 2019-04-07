@@ -241,7 +241,7 @@ class ChartHandler {
         },
         plugins: {
           datalabels: {
-            color: "#FFF",
+            color: "#000",
             formatter: (value: number, context: object) => {
               const percentage = Math.round((value / totalDevicesCount * 100) * 100) / 100;
               return percentage + "%";

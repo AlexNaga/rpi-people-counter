@@ -42,7 +42,7 @@ class ChartHandler {
       options: {
         title: {
           display: true,
-          text: "Estimate of the number of people in the area.",
+          text: "The number of devices in real-time detected.",
         },
         scales: {
           xAxes: [{

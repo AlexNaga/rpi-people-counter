@@ -9,7 +9,8 @@ import * as moment from "moment";
 Chart.plugins.unregister(ChartDataLabels);
 
 class ChartHandler {
-  private dateFormat = "YYYY-MM-DD H:mm:ss"; // 2019-04-01 16:17:26
+  private dateFormat = "YYYY-MM-DD H:mm:ss"; // 2019-04-01 13:20:45
+  private timeFormat = "H:mm:ss"; // 13:20:45
   private liveChart: Chart;
   private pieChart: Chart;
   private dataHandler: DataHandler;
@@ -19,6 +20,9 @@ class ChartHandler {
   }
 
   initLiveChart(data: Data) {
+
+    console.log(data);
+
     // Config for the chart animation
     const delayInSeconds = 10 * 1000;
     const ttlInSeconds = 90 * 1000;
@@ -27,16 +31,24 @@ class ChartHandler {
     const liveCanvas = <HTMLCanvasElement>document.getElementById("liveChart");
     const liveCtx = liveCanvas.getContext("2d");
     this.liveChart = new Chart(liveCtx, {
-      type: "line",
+      type: "bar",
       data: {
         datasets: [{
           label: "Bluetooth",
+          type: "line",
           data: [],
           fill: false
         }, {
           label: "WiFi",
+          type: "line",
           data: [],
           fill: false
+        },
+        {
+          label: "People estimate",
+          data: [],
+          borderColor: "rgba(197,23,1,0.8)",
+          backgroundColor: "rgba(197,23,1,0.4)",
         }]
       },
       options: {
@@ -48,8 +60,9 @@ class ChartHandler {
           xAxes: [{
             scaleLabel: {
               display: true,
-              labelString: "Time"
+              labelString: "Time",
             },
+            barThickness: 30,
             type: "realtime",
             realtime: {
               delay: delayInSeconds,
@@ -69,11 +82,11 @@ class ChartHandler {
             display: true,
             scaleLabel: {
               display: true,
-              labelString: "# of People"
+              labelString: "# Detected"
             },
             ticks: {
               beginAtZero: true,
-              callback: function (value) { if (value % 1 === 0) { return value; } },
+              callback: (value) => { if (value % 1 === 0) { return value; } },
               suggestedMax: 10,
               suggestedMin: 0,
             }
@@ -82,11 +95,18 @@ class ChartHandler {
         plugins: {
           colorschemes: {
             scheme: "tableau.ClassicCyclic13"
-          }
+          },
         },
         tooltips: {
           mode: "nearest",
-          intersect: false
+          intersect: false,
+          callbacks: {
+            title: (tick) => {
+              const date = tick[0].label;
+              const timestamp = moment(date, this.dateFormat).format(this.timeFormat);
+              return timestamp;
+            }
+          }
         },
         hover: {
           mode: "nearest",
@@ -102,10 +122,26 @@ class ChartHandler {
     for (let i = 0; i < data.length; i++) {
       for (let x = 0; x < animDelayInSeconds.length; x++) {
         this.liveChart.data.datasets[i].data.push({
-          x: moment(initDate, this.dateFormat).subtract(animDelayInSeconds[x], "seconds"),
+          x: moment(initDate, this.dateFormat)
+            .subtract(animDelayInSeconds[x], "seconds")
+            .format(this.dateFormat),
           y: data[i].devices_count
         });
       }
+    }
+
+    const btDevicesCount = data[0].devices_count;
+    const wifiDevicesCount = data[1].devices_count;
+    const peopleEstimate = btDevicesCount + wifiDevicesCount;
+
+    // "buffer" ticks for the people estimate
+    for (let x = 0; x < animDelayInSeconds.length; x++) {
+      this.liveChart.data.datasets[2].data.push({
+        x: moment(initDate, this.dateFormat)
+          .subtract(animDelayInSeconds[x], "seconds")
+          .format(this.dateFormat),
+        y: peopleEstimate
+      });
     }
 
     // Update chart datasets keeping the current animation

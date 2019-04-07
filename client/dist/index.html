@@ -12,15 +12,16 @@
 </head>
 
 <body>
+  <!-- Header -->
   <section class="hero is-dark is-bold">
     <div class="hero-body">
       <div class="container">
         <div class="columns">
           <div class="column is-8-desktop is-offset-2-desktop">
-            <h1 class="title is-2 is-spaced">
+            <h1 class="title">
               piPeCounter
             </h1>
-            <h2 class="subtitle is-4">
+            <h2 class="subtitle">
               A Raspberry Pi people counter
             </h2>
           </div>
@@ -28,6 +29,8 @@
       </div>
     </div>
   </section>
+
+  <!-- Content -->
   <section class="section">
     <div class="container">
       <section class="columns">
@@ -37,6 +40,7 @@
           <div class="columns">
             <div class="column">
               <h2 id="peopleCount">Estimate of the number of people in the area.</h2>
+              There are about 3 people around.
             </div>
             <div class="pieChartContainer column">
               <canvas id="pieChart"></canvas>

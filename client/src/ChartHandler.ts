@@ -73,10 +73,6 @@ class ChartHandler {
         }]
       },
       options: {
-        title: {
-          display: true,
-          text: "The number of devices in real-time detected.",
-        },
         scales: {
           xAxes: [{
             scaleLabel: {
@@ -230,10 +226,6 @@ class ChartHandler {
         ]
       },
       options: {
-        title: {
-          display: true,
-          text: "Overall detection rate of Bluetooth vs WiFi."
-        },
         legend: {
           reverse: true,
           onClick: (e: any) => e.stopPropagation()

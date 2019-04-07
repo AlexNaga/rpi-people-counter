@@ -102,7 +102,7 @@ class ChartHandler {
     for (let i = 0; i < data.length; i++) {
       for (let x = 0; x < animDelayInSeconds.length; x++) {
         this.liveChart.data.datasets[i].data.push({
-          x: moment(initDate).subtract(animDelayInSeconds[x], "seconds").format(this.dateFormat),
+          x: moment(initDate, this.dateFormat).subtract(animDelayInSeconds[x], "seconds"),
           y: data[i].devices_count
         });
       }

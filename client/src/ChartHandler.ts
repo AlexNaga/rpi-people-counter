@@ -95,7 +95,7 @@ class ChartHandler {
           },
         },
         tooltips: {
-          mode: "nearest",
+          mode: "index",
           intersect: false,
           callbacks: {
             title: (tick) => {
@@ -104,10 +104,6 @@ class ChartHandler {
               return timestamp;
             }
           }
-        },
-        hover: {
-          mode: "nearest",
-          intersect: false
         },
       }
     });
@@ -171,13 +167,15 @@ class ChartHandler {
   }
 
   updateBarChart(data: Data) {
-    console.log(data);
+    const btDevicesCount = data[0].devices_count;
+    const wifiDevicesCount = data[1].devices_count;
+    const peopleEstimate = btDevicesCount + wifiDevicesCount;
     const peopleBar = 2;
 
     // Append the new data to the existing chart data
     this.liveChart.data.datasets[peopleBar].data.push({
-      x: data.timestamp,
-      y: data.devices_count
+      x: data[0].timestamp,
+      y: peopleEstimate
     });
 
     // Update chart datasets keeping the current animation

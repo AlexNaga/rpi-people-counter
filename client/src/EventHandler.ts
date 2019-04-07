@@ -29,6 +29,7 @@ class EventHandler {
 
     if (isTwoItems) {
       this.chartHandler.updateBarChart(this.tmpList);
+      this.chartHandler.updatePeopleEstimate(this.tmpList);
       this.tmpList = [];
     }
   }

@@ -21,6 +21,28 @@ class ChartHandler {
     this.dataHandler = dataHandler;
   }
 
+  updatePeopleEstimate(data: Data) {
+    const btDevicesCount = data[0].devices_count;
+    const wifiDevicesCount = data[1].devices_count;
+    const peopleEstimate = btDevicesCount + wifiDevicesCount;
+    let pplEstimateDiv = document.getElementById("peopleEstimate");
+    let txt = "";
+
+    switch (peopleEstimate) {
+      case 0:
+        txt = "Could not detect any devices in the area.";
+        break;
+      case 1:
+        txt = "There is about 1 person in the area.";
+        break;
+      default:
+        txt = `There are about ${peopleEstimate} people in the area.`;
+        break;
+    }
+    pplEstimateDiv.textContent = txt;
+  }
+
+
   initLiveChart(data: Data) {
     // Config for the chart animation
     const delayInSeconds = 10 * 1000;
@@ -212,6 +234,10 @@ class ChartHandler {
           display: true,
           text: "Overall detection rate of Bluetooth vs WiFi."
         },
+        legend: {
+          reverse: true,
+          onClick: (e: any) => e.stopPropagation()
+        },
         plugins: {
           datalabels: {
             color: "#FFF",
@@ -236,21 +262,12 @@ class ChartHandler {
     pieSlices[btSlice] = btDevicesCount;
     pieSlices[wifiSlice] = wifiDevicesCount;
 
-    this.pieChart.options = {
-      title: {
-        display: true,
-        text: "Overall detection rate of Bluetooth vs WiFi."
-      },
-      plugins: {
-        datalabels: {
-          color: "#FFF",
-          formatter: (value: number, context: object) => {
-            const percentage = Math.round((value / totalDevicesCount * 100) * 100) / 100;
-            return percentage + "%";
-          }
-        }
-      }
+    // Update the labels
+    this.pieChart.options.plugins.datalabels.formatter = (value: number, context: object) => {
+      const percentage = Math.round((value / totalDevicesCount * 100) * 100) / 100;
+      return percentage + "%";
     }
+
     this.pieChart.update({ preservation: false });
   }
 

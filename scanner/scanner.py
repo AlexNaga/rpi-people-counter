@@ -18,9 +18,7 @@ class Scanner:
     def count_wifi_devices(self):
         """Scans for nearby WiFi devices"""
         # TODO: Implement this
-        from random import randint
-        randomNumber = randint(2, 3)
-        return randomNumber
+        return 0
 
     def start_monitor_mode(self):
         """Starts the WiFi monitor mode"""

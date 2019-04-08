@@ -21,7 +21,7 @@ node_modules/
 config.ini
 
 # Scripts
-*_run_*.sh
+#*_run_*.sh
 
 ### Redis ###
 # Ignore redis binary dump (dump.rdb) files

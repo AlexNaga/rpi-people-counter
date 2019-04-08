@@ -1,6 +1,7 @@
 import bluetooth
 import subprocess
 import configparser
+import time
 
 config = configparser.ConfigParser()
 config.read("config/config.ini")
@@ -18,6 +19,14 @@ class Scanner:
     def count_wifi_devices(self):
         """Scans for nearby WiFi devices"""
         # TODO: Implement this
+        print("Starting monitor mode")
+        self.start_monitor_mode()
+
+        print("Sleeping 10 seconds...")
+        time.sleep(10)
+        
+        self.stop_monitor_mode()
+        print("Exited monitor mode")
         return 0
 
     def start_monitor_mode(self):
@@ -28,10 +37,10 @@ class Scanner:
         except subprocess.CalledProcessError:
             print("Error: Couldn't start the monitor mode.")
 
-    def exit_monitor_mode(self):
+    def stop_monitor_mode(self):
         """Exits the WiFi monitor mode"""
         # TODO: Implement this
         try:
-            subprocess.check_output(["./scripts/exit_monitor_mode.sh"])
+            subprocess.check_output(["./scripts/stop_monitor_mode.sh"])
         except subprocess.CalledProcessError:
-            print("Error: Couldn't exit the monitor mode.")
+            print("Error: Couldn't stop the monitor mode.")

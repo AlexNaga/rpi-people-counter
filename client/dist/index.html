@@ -39,6 +39,7 @@
         <div class="column is-8-desktop is-offset-2-desktop">
           <!-- START main content -->
 
+          <!-- First two columns -->
           <div class="columns">
             <div class="column">
               <p class="is-5 has-text-weight-bold">People estimate</p>
@@ -51,8 +52,33 @@
                 Loading
                 <i class="fas fa-sync fa-spin spinner"></i>
               </p>
-              <div class="notification is-italic">
-                With correction, the average number of people in the country who do not own a smartphone are taken into consideration.
+              <div class="notification">
+                With correction, the average number of people in the country who do not own a smartphone are taken into
+                consideration.
+              </div>
+
+              <!-- Correction selection -->
+              <div class="field">
+                <div class="control has-icons-left">
+                  <div class="select">
+                    <select>
+                      <!-- https://www.statista.com/statistics/321477/smartphone-user-penetration-in-australia
+                           Accessed: 2019-04-08 -->
+                      <option value="0.71">Australia (71%)</option>
+
+                      <!-- https://2018.svenskarnaochinternet.se/allmant-om-internetutvecklingen/smarta-mobiler-fortsatter-oka
+                           Accessed: 2019-04-08 -->
+                      <option value="0.9" selected>Sweden (90%)</option>
+
+                      <!-- https://www.pewinternet.org/fact-sheet/mobile
+                           Accessed: 2019-04-08 -->
+                      <option value="0.77">U.S (77%)</option>
+                    </select>
+                  </div>
+                  <div class="icon is-small is-left">
+                    <i class="fas fa-globe"></i>
+                  </div>
+                </div>
               </div>
             </div>
 

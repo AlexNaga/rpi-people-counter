@@ -6,119 +6,74 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>piPeCounter</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.7.4/dist/semantic.min.css">
   <link href="img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 </head>
 
 <body>
   <!-- Header -->
-  <section class="hero is-dark is-bold">
-    <div class="hero-body">
-      <div class="container">
-        <div class="columns">
-          <div class="column is-8-desktop is-offset-2-desktop">
-            <h1 class="title">
-              piPeCounter
-            </h1>
-            <h2 class="subtitle">
-              A Raspberry Pi people counter
-            </h2>
+  <div class="ui basic segment inverted">
+    <div class="ui text container">
+      <h1 class="ui header inverted">
+        piPeCounter
+        <div class="sub header inverted">
+          A Raspberry Pi people counter
+        </div>
+      </h1>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="ui container">
+    <div class="ui internally celled grid">
+      <!-- <div class="ui compact internally celled grid"> -->
+      <div class="row">
+        <div class="column">
+          <h3 class="ui header">People estimate</h3>
+          <div class="ui statistic">
+            <div class="label">
+              Views
+            </div>
+            <div class="value">
+              40,509
+            </div>
           </div>
+        </div>
+        <div class="ten wide column">
+          <p></p>
+        </div>
+        <div class="three wide column">
+          <img>as
+        </div>
+      </div>
+      <div class="row">
+        <div class="three wide column">
+          <h3 class="ui header">People estimate (with correction)</h3>
+          <div class="notification">
+            With correction, the average number of people in the country who do not own a smartphone are taken into
+            consideration.
+          </div>
+        </div>
+        <div class="ten wide ten heigh column">
+          <p></p>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- Content -->
-  <section class="section">
-    <div class="container">
-      <section class="columns">
-        <div class="column is-8-desktop is-offset-2-desktop">
-          <!-- START main content -->
-
-          <!-- First two columns -->
-          <div class="columns">
-            <div class="column">
-              <p class="is-5 has-text-weight-bold">People estimate</p>
-              <p class="is-6" id="peopleEstimate">
-                Loading
-                <i class="fas fa-sync fa-spin spinner"></i>
-              </p>
-              <p class="is-5 has-text-weight-bold">People estimate (with correction)</p>
-              <p class="is-6" id="peopleEstimateCorr">
-                Loading
-                <i class="fas fa-sync fa-spin spinner"></i>
-              </p>
-              <div class="notification">
-                With correction, the average number of people in the country who do not own a smartphone are taken into
-                consideration.
-              </div>
-
-              <!-- Correction selection -->
-              <div class="field">
-                <div class="control has-icons-left">
-                  <div class="select">
-                    <select>
-                      <!-- https://www.statista.com/statistics/321477/smartphone-user-penetration-in-australia
-                           Accessed: 2019-04-08 -->
-                      <option value="0.71">Australia (71%)</option>
-
-                      <!-- https://2018.svenskarnaochinternet.se/allmant-om-internetutvecklingen/smarta-mobiler-fortsatter-oka
-                           Accessed: 2019-04-08 -->
-                      <option value="0.9" selected>Sweden (90%)</option>
-
-                      <!-- https://www.pewinternet.org/fact-sheet/mobile
-                           Accessed: 2019-04-08 -->
-                      <option value="0.77">U.S (77%)</option>
-                    </select>
-                  </div>
-                  <div class="icon is-small is-left">
-                    <i class="fas fa-globe"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Pie chart -->
-            <div class="column">
-              <p class="is-5 has-text-centered has-text-weight-bold">Overall detection rate of
-                Bluetooth vs WiFi</p>
-              <canvas id="pieChart"></canvas>
-            </div>
-          </div>
-
-          <!-- Live chart -->
-          <div class="columns">
-            <div class="column">
-              <p class="is-5 has-text-centered has-text-weight-bold">The number of devices in real-time detected</p>
-              <canvas id="liveChart"></canvas>
-            </div>
-          </div>
-
-          <!-- END main content -->
-        </div>
-      </section>
-    </div>
-  </section>
-
-  <footer class="footer has-text-centered">
-    <div class="container">
-      <div class="columns">
-        <div class="column is-8-desktop is-offset-2-desktop">
-          <p>
-            <small>
-              Source code available at <a href="https://github.com/AlexNaga/rpi-people-counter">GitHub</a>
-            </small>
-          </p>
-          <p><small>Alex Naga, 2019</small></p>
-        </div>
+  <!-- Footer -->
+  <footer>
+    <div class="ui divider"></div>
+    <div class="ui center aligned column grid">
+      <div class="column">
+        Source code available at <a href="https://github.com/AlexNaga/rpi-people-counter">GitHub</a>
+        <p><span class="ui small text">Alex Naga, 2019</span></p>
       </div>
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.7.4/dist/semantic.min.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
 </body>
 

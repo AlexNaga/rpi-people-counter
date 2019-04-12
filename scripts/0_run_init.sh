@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Start the Bluetooth device
-sudo btmgmt power on
+# sudo btmgmt power on
 
 # Start the MongoDB database
 mongod &

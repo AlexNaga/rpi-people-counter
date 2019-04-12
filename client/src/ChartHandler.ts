@@ -8,7 +8,7 @@ import * as moment from "moment";
 
 Chart.plugins.unregister(ChartDataLabels);
 Chart.defaults.global.defaultFontFamily = "'Ubuntu', 'Cantarell'";
-Chart.defaults.global.defaultFontSize = 13;
+Chart.defaults.global.defaultFontSize = 14;
 
 class ChartHandler {
   private dateFormat = "YYYY-MM-DD H:mm:ss"; // 2019-04-01 13:20:45
@@ -18,6 +18,7 @@ class ChartHandler {
   private dataHandler: DataHandler;
 
   constructor(dataHandler: DataHandler) {
+
     this.dataHandler = dataHandler;
   }
 
@@ -94,7 +95,7 @@ class ChartHandler {
           label: "People estimate",
           data: [],
           borderColor: "rgba(197,23,1,0.8)",
-          backgroundColor: "rgba(197,23,1,0.4)",
+          backgroundColor: "tableau.ClassicColorBlind10",
         }]
       },
       options: {
@@ -136,7 +137,7 @@ class ChartHandler {
         },
         plugins: {
           colorschemes: {
-            scheme: "tableau.ClassicCyclic13"
+            // scheme: "tableau.ClassicCyclic13"
           },
         },
         tooltips: {

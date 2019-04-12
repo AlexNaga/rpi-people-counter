@@ -24,31 +24,47 @@ class ChartHandler {
   updatePeopleEstimate(data: Data) {
     const btDevicesCount = data[0].devices_count;
     const wifiDevicesCount = data[1].devices_count;
-    const peopleEstimate = btDevicesCount + wifiDevicesCount;
+    let pplEstimate = btDevicesCount + wifiDevicesCount;
     const percentOfSmartphoneOwners = 0.9;
-    const peopleEstimateCorr = Math.round((peopleEstimate / percentOfSmartphoneOwners)).toString();
+    let pplEstimateCorr = Math.round((pplEstimate / percentOfSmartphoneOwners)).toString();
 
-    const peopleDiv = document.getElementById("peopleEstimate");
-    const peopleCorrDiv = document.getElementById("peopleEstimateCorr");
-    let txt = "";
-    let txtWithCorr = "";
+    const pplDiv = document.getElementById("pplValue");
+    const pplTopTxtDiv = document.getElementById("pplTopTxt");
+    const pplBottomTxtDiv = document.getElementById("pplBottomTxt");
+    const pplCorrDiv = document.getElementById("pplCorrValue");
+    const pplCorrTopTxtDiv = document.getElementById("pplCorrTopTxt");
+    const pplCorrBottomTxtDiv = document.getElementById("pplCorrBottomTxt");
+    let pplTopTxt = "";
+    let pplBottomTxt = "";
+    let pplCorrTopTxt = "";
+    let pplCorrBottomTxt = "";
 
-    switch (peopleEstimate) {
+    switch (pplEstimate) {
       case 0:
-        txt = "Could not detect any devices in the area.";
-        txtWithCorr = txt;
+        pplTopTxt = "Could not detect any devices in the area.";
+        pplCorrTopTxt = "Could not detect any devices in the area.";
+        pplEstimate = "";
+        pplEstimateCorr = "";
         break;
       case 1:
-        txt = "There is about 1 person in the area.";
-        txtWithCorr = txt;
+        pplTopTxt = "There is about";
+        pplBottomTxt = "person in the area";
+        pplCorrTopTxt = pplTopTxt;
+        pplCorrBottomTxt = pplBottomTxt;
         break;
       default:
-        txt = `There are about ${peopleEstimate} people in the area.`;
-        txtWithCorr = `There are about ${peopleEstimateCorr} people in the area.`;
+        pplTopTxt = "There are about";
+        pplBottomTxt = "people in the area";
+        pplCorrTopTxt = pplTopTxt;
+        pplCorrBottomTxt = pplBottomTxt;
         break;
     }
-    peopleDiv.textContent = txt;
-    peopleCorrDiv.textContent = txtWithCorr;
+    pplDiv.textContent = pplEstimate;
+    pplCorrDiv.textContent = pplEstimateCorr;
+    pplTopTxtDiv.textContent = pplTopTxt;
+    pplBottomTxtDiv.textContent = pplBottomTxt;
+    pplCorrTopTxtDiv.textContent = pplCorrTopTxt;
+    pplCorrBottomTxtDiv.textContent = pplCorrBottomTxt;
   }
 
 

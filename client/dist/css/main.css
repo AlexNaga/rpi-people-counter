@@ -6,10 +6,23 @@
   margin-left: 5px;
 }
 
-#peopleEstimate {
-  margin-bottom: 15px;
+#pplBottomTxt {
+  margin-bottom: 2px;
 }
 
-#peopleEstimateCorr {
-  margin-bottom: 15px;
+
+#pplCorrBottomTxt {
+  margin-bottom: 2px;
+}
+
+#pplCorrHeader {
+  margin-top: 0px;
+}
+
+#corrTxtHeader {
+  margin-bottom: 8px;
+}
+
+.loaderContainer {
+  height: 120px;
 }

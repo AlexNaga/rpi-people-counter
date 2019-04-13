@@ -18,7 +18,6 @@ class ChartHandler {
   private dataHandler: DataHandler;
 
   constructor(dataHandler: DataHandler) {
-
     this.dataHandler = dataHandler;
   }
 
@@ -60,6 +59,12 @@ class ChartHandler {
         pplCorrBottomTxt = pplBottomTxt;
         break;
     }
+
+    const loaders = document.getElementsByClassName("loader");
+    for (const loader of loaders) {
+      loader.classList.remove("active");
+    }
+
     pplDiv.textContent = pplEstimate;
     pplCorrDiv.textContent = pplEstimateCorr;
     pplTopTxtDiv.textContent = pplTopTxt;
@@ -258,7 +263,7 @@ class ChartHandler {
         },
         plugins: {
           datalabels: {
-            color: "#000",
+            color: "#FFF",
             formatter: (value: number, context: object) => {
               const percentage = Math.round((value / totalDevicesCount * 100) * 100) / 100;
               return percentage + "%";

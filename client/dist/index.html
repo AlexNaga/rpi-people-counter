@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>piPeCounter</title>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.7.4/dist/semantic.min.css">
+  <link rel="stylesheet" href="css/main.css">
   <link href="img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 </head>
 
@@ -34,23 +35,39 @@
         <!-- Top left -->
         <div class="four wide column">
           <h3 class="ui header">People estimate</h3>
-          <div class="ui statistic">
-            <div class="label" id="pplTopTxt"></div>
-            <div class="value" id="pplValue"></div>
-            <div class="label" id="pplBottomTxt"></div>
+          <div class="ui center aligned grid">
+            <div class="column loaderContainer">
+              <div class="ui statistic">
+                <div class="label" id="pplTopTxt"></div>
+                <div class="value" id="pplValue"></div>
+                <div class="label" id="pplBottomTxt"></div>
+              </div>
+              <div class="ui text loader active">Loading</div>
+            </div>
+          </div>
+
+          <div class="ui divider"></div>
+
+          <h3 class="ui header" id="pplCorrHeader">People estimate <br>(with correction)</h3>
+          <div class="ui center aligned grid">
+            <div class="column loaderContainer">
+              <div class="ui statistic">
+                <div class="label" id="pplCorrTopTxt"></div>
+                <div class="value" id="pplCorrValue"></div>
+                <div class="label" id="pplCorrBottomTxt"></div>
+              </div>
+              <div class="ui text loader active">Loading</div>
+            </div>
           </div>
         </div>
 
-        <!-- Top center -->
-        <div class="ten wide column">
+        <!-- Top right -->
+        <div class="eight wide column">
           <h3 class="ui header">Overall detection rate of Bluetooth vs WiFi</h3>
           <!-- Pie chart -->
-          <canvas id="pieChart"></canvas>
-        </div>
-
-        <!-- Top right -->
-        <div class="two wide column">
-          <h3 class="ui header">Top right</h3>
+          <div class="chartContainer">
+            <canvas id="pieChart"></canvas>
+          </div>
         </div>
       </div>
 
@@ -60,28 +77,20 @@
 
         <!-- Bottom left -->
         <div class="four wide column">
-          <h3 class="ui header">People estimate <br>(with correction)</h3>
-          <div class="ui statistic">
-            <div class="label" id="pplCorrTopTxt"></div>
-            <div class="value" id="pplCorrValue"></div>
-            <div class="label" id="pplCorrBottomTxt"></div>
-          </div>
-          <div class="ui floating message">
+          <div class="ui raised segment">
+            <a class="ui blue ribbon label" id="corrTxtHeader">Correction</a>
             <p>With correction, the average number of people in the country who do not own a smartphone are taken into
               consideration.</p>
           </div>
         </div>
 
-        <!-- Bottom center -->
-        <div class="ten wide column">
+        <!-- Bottom right -->
+        <div class="eleven wide column">
           <h3 class="ui header">The number of devices in real-time detected</h3>
           <!-- Live chart -->
-          <canvas id="liveChart"></canvas>
-        </div>
-
-        <!-- Bottom right -->
-        <div class="two wide column">
-          <h3 class="ui header">Bottom right</h3>
+          <div class="chartContainer">
+            <canvas id="liveChart"></canvas>
+          </div>
         </div>
       </div>
     </div>

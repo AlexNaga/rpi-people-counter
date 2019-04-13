@@ -5,3 +5,4 @@
 # Start the data listener
 cd client
 npm run watch
+# node browserSync.js

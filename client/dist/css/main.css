@@ -1,26 +1,17 @@
-.hero {
-  margin-bottom: -15px;
-}
-
-.spinner {
-  margin-left: 5px;
-}
-
-#pplBottomTxt {
-  margin-bottom: 2px;
-}
-
-
-#pplCorrBottomTxt {
-  margin-bottom: 2px;
-}
-
 #pplCorrHeader {
   margin-top: 0px;
 }
 
 #corrTxtHeader {
   margin-bottom: 8px;
+}
+
+#pplCorrBottomTxt {
+  margin-bottom: 2px;
+}
+
+#pplBottomTxt {
+  margin-bottom: 2px;
 }
 
 .loaderContainer {

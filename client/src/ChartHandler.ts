@@ -60,9 +60,12 @@ class ChartHandler {
         break;
     }
 
+    // Disable loading spinner
     const loaders = document.getElementsByClassName("loader");
     for (const loader of loaders) {
-      loader.classList.remove("active");
+      if (loader.classList.contains("active")) {
+        loader.classList.remove("active");
+      }
     }
 
     pplDiv.textContent = pplEstimate;

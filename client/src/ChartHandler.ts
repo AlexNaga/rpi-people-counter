@@ -13,9 +13,9 @@ Chart.defaults.global.defaultFontSize = 14;
 class ChartHandler {
   private dateFormat = "YYYY-MM-DD H:mm:ss"; // 2019-04-01 13:20:45
   private timeFormat = "H:mm:ss"; // 13:20:45
+  private dataHandler: DataHandler;
   private liveChart: Chart;
   private pieChart: Chart;
-  private dataHandler: DataHandler;
   private pplEstimate: number;
   private pplEstimateCorr: number;
 
@@ -86,7 +86,7 @@ class ChartHandler {
     const ttlInSeconds = 90 * 1000;
     const durationInSeconds = 40 * 1000;
 
-    const liveCanvas = <HTMLCanvasElement>document.getElementById("liveChart");
+    const liveCanvas = <HTMLCanvasElement>$("#liveChart").get(0);
     const liveCtx = liveCanvas.getContext("2d");
     this.liveChart = new Chart(liveCtx, {
       type: "bar",
@@ -248,7 +248,7 @@ class ChartHandler {
     const wifiDevicesCount = data.wifi_devices_count;
     const totalDevicesCount = btDevicesCount + wifiDevicesCount;
 
-    const pieCanvas = <HTMLCanvasElement>document.getElementById("pieChart");
+    const pieCanvas = <HTMLCanvasElement>$("#pieChart").get(0);
     const pieCtx = pieCanvas.getContext("2d");
     this.pieChart = new Chart(pieCtx, {
       type: "pie",
@@ -284,7 +284,6 @@ class ChartHandler {
     const btDevicesCount = data.bt_devices_count;
     const wifiDevicesCount = data.wifi_devices_count;
     const totalDevicesCount = btDevicesCount + wifiDevicesCount;
-
     const pieSlices = this.pieChart.data.datasets[0].data;
     const btSlice = 0;
     const wifiSlice = 1;

@@ -32,6 +32,8 @@
   },
   "dependencies": {
     "@types/chart.js": "^2.7.50",
+    "@types/jquery": "^3.3.29",
+    "@types/semantic-ui": "^2.2.7",
     "browser-sync": "^2.26.3",
     "chart.js": "^2.8.0",
     "chartjs-plugin-colorschemes": "^0.3.0",

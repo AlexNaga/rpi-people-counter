@@ -16,64 +16,67 @@ class ChartHandler {
   private liveChart: Chart;
   private pieChart: Chart;
   private dataHandler: DataHandler;
+  private pplEstimate: number;
+  private pplEstimateCorr: number;
 
   constructor(dataHandler: DataHandler) {
     this.dataHandler = dataHandler;
+    this.correctionHandler();
+  }
+
+  correctionHandler() {
+    const pplCenterDiv = $("#pplValue");
+
+    // Bind events to buttons
+    $('.ui.toggle').checkbox({
+      onChecked: () => {
+        pplCenterDiv.text(this.pplEstimateCorr);
+      },
+      onUnchecked: () => {
+        pplCenterDiv.text(this.pplEstimate);
+      }
+    });
   }
 
   updatePeopleEstimate(data: Data) {
     const btDevicesCount = data[0].devices_count;
     const wifiDevicesCount = data[1].devices_count;
-    let pplEstimate = btDevicesCount + wifiDevicesCount;
-    const percentOfSmartphoneOwners = 0.9;
-    let pplEstimateCorr = Math.round((pplEstimate / percentOfSmartphoneOwners)).toString();
+    this.pplEstimate = btDevicesCount + wifiDevicesCount;
 
-    const pplDiv = document.getElementById("pplValue");
-    const pplTopTxtDiv = document.getElementById("pplTopTxt");
-    const pplBottomTxtDiv = document.getElementById("pplBottomTxt");
-    const pplCorrDiv = document.getElementById("pplCorrValue");
-    const pplCorrTopTxtDiv = document.getElementById("pplCorrTopTxt");
-    const pplCorrBottomTxtDiv = document.getElementById("pplCorrBottomTxt");
-    let pplTopTxt = "";
-    let pplBottomTxt = "";
-    let pplCorrTopTxt = "";
-    let pplCorrBottomTxt = "";
+    const pplTopDiv = $("#pplTopTxt");
+    const pplCenterDiv = $("#pplValue");
+    const pplBottomDiv = $("#pplBottomTxt");
+    const wantCorrection = $(".ui.checkbox").checkbox("is checked")
+    const percentSmartphoneOwners = 0.9;
+    this.pplEstimateCorr = Math.round((this.pplEstimate / percentSmartphoneOwners));
 
-    switch (pplEstimate) {
-      case 0:
-        pplTopTxt = "Could not detect any devices in the area.";
-        pplCorrTopTxt = "Could not detect any devices in the area.";
-        pplEstimate = "";
-        pplEstimateCorr = "";
-        break;
-      case 1:
-        pplTopTxt = "There is about";
-        pplBottomTxt = "person in the area";
-        pplCorrTopTxt = pplTopTxt;
-        pplCorrBottomTxt = pplBottomTxt;
-        break;
-      default:
-        pplTopTxt = "There are about";
-        pplBottomTxt = "people in the area";
-        pplCorrTopTxt = pplTopTxt;
-        pplCorrBottomTxt = pplBottomTxt;
-        break;
+    console.log(" Est: ", this.pplEstimate);
+    console.log("Corr: ", this.pplEstimateCorr);
+
+    if (wantCorrection) {
+      pplCenterDiv.text(this.pplEstimateCorr);
+    } else {
+      pplCenterDiv.text(this.pplEstimate);
     }
 
     // Disable loading spinner
-    const loaders = document.getElementsByClassName("loader");
-    for (const loader of loaders) {
-      if (loader.classList.contains("active")) {
-        loader.classList.remove("active");
-      }
-    }
+    const loader = $(".loader").removeClass("active");
 
-    pplDiv.textContent = pplEstimate;
-    pplCorrDiv.textContent = pplEstimateCorr;
-    pplTopTxtDiv.textContent = pplTopTxt;
-    pplBottomTxtDiv.textContent = pplBottomTxt;
-    pplCorrTopTxtDiv.textContent = pplCorrTopTxt;
-    pplCorrBottomTxtDiv.textContent = pplCorrBottomTxt;
+    switch (this.pplEstimate) {
+      case 0:
+        pplTopDiv.text("Could not detect any devices in the area.");
+        pplCenterDiv.text("");
+        pplBottomDiv.text("");
+        break;
+      case 1:
+        pplTopDiv.text("There is about");
+        pplBottomDiv.text("person in the area");
+        break;
+      default:
+        pplTopDiv.text("There are about");
+        pplBottomDiv.text("people in the area");
+        break;
+    }
   }
 
 

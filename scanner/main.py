@@ -20,8 +20,11 @@ def main():
         from random import randint
         from time import sleep
         sleep(5)
-        bt_devices_count = randint(2, 3)
-        wifi_devices_count = randint(5, 6)
+        # bt_devices_count = randint(2, 4)
+        # wifi_devices_count = randint(20, 40)
+
+        bt_devices_count = 10
+        wifi_devices_count = 30
 
         sensor_type = "bt"
         printStats(bt_devices_count, sensor_type)

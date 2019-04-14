@@ -18,6 +18,7 @@ class ChartHandler {
   private pieChart: Chart;
   private pplEstimate: number;
   private pplEstimateCorr: number;
+  private percentSmartphoneOwners: number;
 
   constructor(dataHandler: DataHandler) {
     this.dataHandler = dataHandler;
@@ -26,6 +27,8 @@ class ChartHandler {
 
   correctionHandler() {
     const pplCenterDiv = $("#pplValue");
+    const initPercent = $(".ui.dropdown").dropdown("get value");
+    this.percentSmartphoneOwners = initPercent;
 
     // Bind events to buttons
     $(".ui.toggle").checkbox({
@@ -38,7 +41,12 @@ class ChartHandler {
     });
 
     $(".ui.dropdown")
-      .dropdown();
+      .dropdown({
+        onChange: (value) => {
+          this.percentSmartphoneOwners = value;
+          this.checkIfCorrection();
+        }
+      });
   }
 
   updatePeopleEstimate(data: Data) {
@@ -49,18 +57,8 @@ class ChartHandler {
     const pplTopDiv = $("#pplTopTxt");
     const pplCenterDiv = $("#pplValue");
     const pplBottomDiv = $("#pplBottomTxt");
-    const wantCorrection = $(".ui.checkbox").checkbox("is checked")
-    const percentSmartphoneOwners = 0.9;
-    this.pplEstimateCorr = Math.round((this.pplEstimate / percentSmartphoneOwners));
 
-    console.log(" Est: ", this.pplEstimate);
-    console.log("Corr: ", this.pplEstimateCorr);
-
-    if (wantCorrection) {
-      pplCenterDiv.text(this.pplEstimateCorr);
-    } else {
-      pplCenterDiv.text(this.pplEstimate);
-    }
+    this.checkIfCorrection();
 
     // Disable loading spinner
     const loader = $(".loader").removeClass("active");
@@ -79,6 +77,19 @@ class ChartHandler {
         pplTopDiv.text("There are about");
         pplBottomDiv.text("people in the area");
         break;
+    }
+  }
+
+  // Check if correction is active
+  checkIfCorrection() {
+    const pplCenterDiv = $("#pplValue");
+    const wantCorrection = $(".ui.checkbox").checkbox("is checked")
+    this.pplEstimateCorr = Math.round((this.pplEstimate / this.percentSmartphoneOwners));
+
+    if (wantCorrection) {
+      pplCenterDiv.text(this.pplEstimateCorr);
+    } else {
+      pplCenterDiv.text(this.pplEstimate);
     }
   }
 

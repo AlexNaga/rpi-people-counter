@@ -29,7 +29,7 @@
     <div class="ui stackable internally celled two column grid">
 
       <!-- Left column -->
-      <div class="four wide column">
+      <div class="five wide tablet four wide computer column">
         <h3 class="ui header">People estimate</h3>
         <div class="ui center aligned grid">
           <div class="column loaderContainer">
@@ -58,10 +58,34 @@
           <p>With correction, the average number of people in the country who do not own a smartphone are taken into
             consideration.</p>
         </div>
+
+        <h4 class="ui header">Correction country</h4>
+
+        <div class="ui fluid selection dropdown">
+          <!-- <input type="hidden" name="country" value="0.9"> -->
+          <i class="dropdown icon"></i>
+          <div class="default text">
+            <i class="se flag"></i>
+            <span class="ui black text">Sweden (10%)</span>
+          </div>
+          <div class="menu">
+            <!-- https://www.statista.com/statistics/321477/smartphone-user-penetration-in-australia
+                         Accessed: 2019-04-08 -->
+            <div class="item" data-value="0.71"><i class="au flag"></i>Australia (29%)</div>
+
+            <!-- https://2018.svenskarnaochinternet.se/allmant-om-internetutvecklingen/smarta-mobiler-fortsatter-oka
+                         Accessed: 2019-04-08 -->
+            <div class="item" data-value="0.9"><i class="se flag"></i>Sweden (10%)</div>
+
+            <!-- https://www.pewinternet.org/fact-sheet/mobile
+                         Accessed: 2019-04-08 -->
+            <div class="item" data-value="0.77"><i class="us flag"></i>U.S (23%)</div>
+          </div>
+        </div>
       </div>
 
       <!-- Right column -->
-      <div class="twelve wide column">
+      <div class="eleven wide tablet twelve wide computer column">
         <div class="ui grid">
 
           <!-- Live chart -->

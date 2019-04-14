@@ -28,7 +28,7 @@ class ChartHandler {
     const pplCenterDiv = $("#pplValue");
 
     // Bind events to buttons
-    $('.ui.toggle').checkbox({
+    $(".ui.toggle").checkbox({
       onChecked: () => {
         pplCenterDiv.text(this.pplEstimateCorr);
       },
@@ -36,6 +36,9 @@ class ChartHandler {
         pplCenterDiv.text(this.pplEstimate);
       }
     });
+
+    $(".ui.dropdown")
+      .dropdown();
   }
 
   updatePeopleEstimate(data: Data) {

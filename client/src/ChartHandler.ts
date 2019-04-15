@@ -58,10 +58,9 @@ class ChartHandler {
     const pplCenterDiv = $("#pplValue");
     const pplBottomDiv = $("#pplBottomTxt");
 
-    this.checkIfCorrection();
-
     // Disable loading spinner
     const loader = $(".loader").removeClass("active");
+    this.checkIfCorrection();
 
     switch (this.pplEstimate) {
       case 0:
@@ -119,8 +118,6 @@ class ChartHandler {
         {
           label: "People estimate",
           data: [],
-          borderColor: "rgba(197,23,1,0.8)",
-          backgroundColor: "tableau.ClassicColorBlind10",
         }]
       },
       options: {
@@ -162,7 +159,9 @@ class ChartHandler {
         },
         plugins: {
           colorschemes: {
-            // scheme: "tableau.ClassicCyclic13"
+            scheme: "brewer.Blues4",
+            reverse: true,
+            fillAlpha: 0.9,
           },
         },
         tooltips: {
@@ -288,7 +287,12 @@ class ChartHandler {
               const percentage = Math.round((value / totalDevicesCount * 100) * 100) / 100;
               return percentage + "%";
             }
-          }
+          },
+          colorschemes: {
+            scheme: "brewer.Blues4",
+            reverse: true,
+            fillAlpha: 0.9,
+          },
         }
       }
     });

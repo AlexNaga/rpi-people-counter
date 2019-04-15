@@ -14,17 +14,8 @@ def main():
     data_handler = DataHandler()
 
     while True:
-        # bt_devices_count = scanner.count_bt_devices()
-        # wifi_devices_count = scanner.count_wifi_devices()
-        
-        from random import randint
-        from time import sleep
-        sleep(5)
-        # bt_devices_count = randint(2, 4)
-        # wifi_devices_count = randint(20, 40)
-
-        bt_devices_count = 10
-        wifi_devices_count = 30
+        bt_devices_count = scanner.count_bt_devices()
+        wifi_devices_count = scanner.count_wifi_devices()
 
         sensor_type = "bt"
         printStats(bt_devices_count, sensor_type)

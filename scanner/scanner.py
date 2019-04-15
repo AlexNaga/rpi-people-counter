@@ -26,7 +26,7 @@ class Scanner:
         time.sleep(10)
         
         self.stop_monitor_mode()
-        print("Exited monitor mode")
+        print("Stopped monitor mode")
         return 0
 
     def start_monitor_mode(self):

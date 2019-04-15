@@ -1,7 +1,10 @@
 #!/bin/bash
 
+# INTERFACE="wlan0"
+INTERFACE="wlp0s20u2"
+
 # Stop monitor mode
-airmon-ng stop wlan0mon
+sudo airmon-ng stop "{$INTERFACE}mon"
 
 # Restart DHCP service
-dhclient wlan0
+sudo dhclient $INTERFACE

@@ -152,7 +152,7 @@ class ChartHandler {
             ticks: {
               beginAtZero: true,
               callback: (value) => { if (value % 1 === 0) { return value; } },
-              suggestedMax: 10,
+              suggestedMax: 35,
               suggestedMin: 0,
             }
           }]

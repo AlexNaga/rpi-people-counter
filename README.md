@@ -1,5 +1,5 @@
 # piPeCounter - A Raspberry Pi people counter
-Real-time application for estimating the number of people in an area using WiFi and Bluetooth signals.
+Real-time application for estimating the number of people in an area using Bluetooth and WiFi signals.
 
 ![piPeCounter](https://github.com/AlexNaga/rpi-people-counter/raw/master/img/piPeCounter.png)
 

@@ -3,6 +3,8 @@ import subprocess
 import configparser
 import time
 
+import pyshark
+
 config = configparser.ConfigParser()
 config.read("config/config.ini")
 
@@ -19,14 +21,14 @@ class Scanner:
     def count_wifi_devices(self):
         """Scans for nearby WiFi devices"""
         # TODO: Implement this
-        print("Starting monitor mode")
-        self.start_monitor_mode()
+        adapter = "wlan1mon"
+        scantime = "5"
 
-        print("Sleeping 10 seconds...")
-        time.sleep(10)
-        
-        self.stop_monitor_mode()
-        print("Stopped monitor mode")
+        capture = pyshark.LiveCapture(interface=adapter)
+        capture.sniff(timeout=50)
+
+        for packet in capture.sniff_continuously(packet_count=5):
+            print('Just arrived:', packet)
         return 0
 
     def start_monitor_mode(self):

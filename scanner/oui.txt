@@ -15419,12 +15419,6 @@ A8CE90     (base 16)		CVC
 				San Jose  CA  94568
 				US
 
-00-07-89   (hex)		DONGWON SYSTEMS
-000789     (base 16)		DONGWON SYSTEMS
-				861-5, Gwanyang-Dong, Dongan-Gu,
-				Anyang-si, Gyeonggi-do,    430-803
-				KR
-
 00-07-83   (hex)		SynCom Network, Inc.
 000783     (base 16)		SynCom Network, Inc.
 				4F, No. 31, Hsintai Road, Chupei City,
@@ -31483,6 +31477,24 @@ DC54D7     (base 16)		Amazon Technologies Inc.
 
 7C-4C-A5   (hex)		BSkyB Ltd
 7C4CA5     (base 16)		BSkyB Ltd
+				130 Kings Road
+				Brentwood  Essex  08854
+				GB
+
+00-07-89   (hex)		Allradio Co., Ltd
+000789     (base 16)		Allradio Co., Ltd
+				861-5, Gwanyang-Dong, Dongan-Gu,
+				Anyang-si, Gyeonggi-do,    430-803
+				KR
+
+8C-BE-24   (hex)		Tashang Semiconductor(Shanghai) Co., Ltd.
+8CBE24     (base 16)		Tashang Semiconductor(Shanghai) Co., Ltd.
+				Room 903, Building 5, Minggu Science Park,No. 7001, Zhong Chun Road, Minhang District ,Shanghai 201101, P.R. China
+				Shanghai    123456
+				CN
+
+80-72-15   (hex)		BSkyB Ltd
+807215     (base 16)		BSkyB Ltd
 				130 Kings Road
 				Brentwood  Essex  08854
 				GB
@@ -63185,11 +63197,11 @@ E86F38     (base 16)		CHONGQING FUGUI ELECTRONICS CO.,LTD.
 				Colorado Springs  CO  80920
 				US
 
-F4-CE-36   (hex)		Nordic Semiconductor ASA
-F4CE36     (base 16)		Nordic Semiconductor ASA
-				Otto Nielsens veg 12
-				Trondheim    NO-7052
-				NO
+64-FF-0A   (hex)		Wistron Neweb Corporation
+64FF0A     (base 16)		Wistron Neweb Corporation
+				No.20,Park Avenue II,Hsinchu Science Park
+				Hsin-Chu  R.O.C.  308
+				TW
 
 A0-BD-CD   (hex)		BSkyB Ltd
 A0BDCD     (base 16)		BSkyB Ltd
@@ -63203,12 +63215,6 @@ D058FC     (base 16)		BSkyB Ltd
 				Brentwood  Essex  08854
 				GB
 
-64-FF-0A   (hex)		Wistron Neweb Corporation
-64FF0A     (base 16)		Wistron Neweb Corporation
-				No.20,Park Avenue II,Hsinchu Science Park
-				Hsin-Chu  R.O.C.  308
-				TW
-
 78-3E-53   (hex)		BSkyB Ltd
 783E53     (base 16)		BSkyB Ltd
 				130 Kings Road
@@ -63221,6 +63227,12 @@ D058FC     (base 16)		BSkyB Ltd
 				Brentwood  Essex  08854
 				GB
 
+F4-CE-36   (hex)		Nordic Semiconductor ASA
+F4CE36     (base 16)		Nordic Semiconductor ASA
+				Otto Nielsens veg 12
+				Trondheim    NO-7052
+				NO
+
 3C-EC-EF   (hex)		Super Micro Computer, Inc.
 3CECEF     (base 16)		Super Micro Computer, Inc.
 				980 Rock Ave
@@ -63232,6 +63244,30 @@ FCA47A     (base 16)		IEEE Registration Authority
 				445 Hoes Lane
 				Piscataway  NJ  08554
 				US
+
+1C-41-76   (hex)		China Mobile Group Device Co.,Ltd.
+1C4176     (base 16)		China Mobile Group Device Co.,Ltd.
+				32 Xuanwumen West Street,Xicheng District
+				Beijing    100053
+				CN
+
+48-21-6C   (hex)		China Mobile IOT Company Limited
+48216C     (base 16)		China Mobile IOT Company Limited
+				Building D3,No.8 Yangliu North Road,Yubei District 
+				CHONGQING  CHONGQING  401121
+				CN
+
+AC-C3-58   (hex)		Continental Automotive Czech Republic s.r.o.
+ACC358     (base 16)		Continental Automotive Czech Republic s.r.o.
+				Průmyslová 1851
+				Brandýs nad Labem    250 01
+				CZ
+
+60-44-7A   (hex)		Water-i.d. GmbH
+60447A     (base 16)		Water-i.d. GmbH
+				Daimlerstr. 20
+				Eggenstein    76344
+				DE
 
 58-46-E1   (hex)		Baxter International Inc
 5846E1     (base 16)		Baxter International Inc
@@ -94195,6 +94231,24 @@ D8E72B     (base 16)		NetAlly
 				P.O Box 8102
 				Reno  NV  89507
 				US
+
+F0-99-19   (hex)		Garmin International
+F09919     (base 16)		Garmin International
+				1200 E. 151st St
+				Olathe  KS  66062
+				US
+
+C4-AC-59   (hex)		Murata Manufacturing Co., Ltd.
+C4AC59     (base 16)		Murata Manufacturing Co., Ltd.
+				1-10-1, Higashikotari
+				Nagaokakyo-shi  Kyoto  617-8555
+				JP
+
+58-16-D7   (hex)		ALPS ELECTRIC CO., LTD.
+5816D7     (base 16)		ALPS ELECTRIC CO., LTD.
+				nishida  6-1 
+				Kakuda-City  Miyagi-Pref  981-1595
+				JP
 
 D8-6C-E9   (hex)		Sagemcom Broadband SAS
 D86CE9     (base 16)		Sagemcom Broadband SAS
@@ -125591,23 +125645,29 @@ D44BB6     (base 16)		Zhejiang Tmall Technology Co., Ltd.
 				Hong Kong  Hong Kong  999077
 				HK
 
-08-68-8D   (hex)		New H3C Technologies Co., Ltd
-08688D     (base 16)		New H3C Technologies Co., Ltd
-				466 Changhe Road, Binjiang District
-				Hangzhou  Zhejiang  310052
-				CN
-
 3C-89-94   (hex)		BSkyB Ltd
 3C8994     (base 16)		BSkyB Ltd
 				130 Kings Road
 				Brentwood  Essex  08854
 				GB
 
+08-68-8D   (hex)		New H3C Technologies Co., Ltd
+08688D     (base 16)		New H3C Technologies Co., Ltd
+				466 Changhe Road, Binjiang District
+				Hangzhou  Zhejiang  310052
+				CN
+
 C0-3E-0F   (hex)		BSkyB Ltd
 C03E0F     (base 16)		BSkyB Ltd
 				130 Kings Road
 				Brentwood  Essex  08854
 				GB
+
+18-A4-A9   (hex)		Vanu Inc.
+18A4A9     (base 16)		Vanu Inc.
+				81 Hartwell Ave
+				Lexington  MA  02421
+				US
 
 2C-39-96   (hex)		Sagemcom Broadband SAS
 2C3996     (base 16)		Sagemcom Broadband SAS
@@ -132346,12 +132406,6 @@ A4AE9A     (base 16)		Maestro Wireless Solutions ltd.
 				2440 Kiowa Blvd. N. #102
 				Lake Havasu City  AZ  86403
 				US
-
-9C-28-BF   (hex)		Continental Automotive Czech Republic s.r.o.
-9C28BF     (base 16)		Continental Automotive Czech Republic s.r.o.
-				Průmyslová 1851
-				Brandýs nad Labem    250 01
-				CZ
 
 20-6F-EC   (hex)		Braemac CA LLC
 206FEC     (base 16)		Braemac CA LLC
@@ -156980,17 +157034,23 @@ C0CBF1     (base 16)		Mobiwire Mobiles (NingBo) Co., LTD
 				Ningbo  Zhejiang  315500
 				CN
 
-20-47-ED   (hex)		BSkyB Ltd
-2047ED     (base 16)		BSkyB Ltd
-				130 Kings Road
-				Brentwood  Essex  08854
-				GB
-
 10-33-BF   (hex)		Technicolor CH USA Inc.
 1033BF     (base 16)		Technicolor CH USA Inc.
 				5030 Sugarloaf Parkway Bldg 6
 				Lawrenceville  GA  30044
 				US
+
+00-19-FB   (hex)		BSkyB Ltd
+0019FB     (base 16)		BSkyB Ltd
+				130 Kings Road
+				Brentwood  Essex  08854
+				GB
+
+20-47-ED   (hex)		BSkyB Ltd
+2047ED     (base 16)		BSkyB Ltd
+				130 Kings Road
+				Brentwood  Essex  08854
+				GB
 
 0C-F9-C0   (hex)		BSkyB Ltd
 0CF9C0     (base 16)		BSkyB Ltd
@@ -156998,8 +157058,14 @@ C0CBF1     (base 16)		Mobiwire Mobiles (NingBo) Co., LTD
 				Brentwood  Essex  08854
 				GB
 
-00-19-FB   (hex)		BSkyB Ltd
-0019FB     (base 16)		BSkyB Ltd
-				130 Kings Road
-				Brentwood  Essex  08854
-				GB
+80-E8-2C   (hex)		Hewlett Packard
+80E82C     (base 16)		Hewlett Packard
+				11445 Compaq Center Drive
+				Houston  TX  77070
+				US
+
+9C-28-BF   (hex)		Continental Automotive Czech Republic s.r.o.
+9C28BF     (base 16)		Continental Automotive Czech Republic s.r.o.
+				Průmyslová 1851
+				Brandýs nad Labem    250 01
+				CZ

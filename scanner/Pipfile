@@ -13,7 +13,6 @@ paho-mqtt = "*"
 easydict = "*"
 configparser = "*"
 flask = "*"
-pyshark = "*"
 
 [requires]
 python_version = "3.7"

@@ -14,12 +14,12 @@ def main():
     data_handler = DataHandler()
 
     while True:
-        bt_devices_count = scanner.count_bt_devices()
+        # bt_devices_count = scanner.count_bt_devices()
         wifi_devices_count = scanner.count_wifi_devices()
 
-        sensor_type = "bt"
-        printStats(bt_devices_count, sensor_type)
-        data_handler.send_data(bt_devices_count, sensor_type)
+        # sensor_type = "bt"
+        # printStats(bt_devices_count, sensor_type)
+        # data_handler.send_data(bt_devices_count, sensor_type)
 
         sensor_type = "wifi"
         printStats(wifi_devices_count, sensor_type)

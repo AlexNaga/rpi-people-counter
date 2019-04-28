@@ -1,15 +1,16 @@
-from wifi_scan.main import wifi_scan
 import bluetooth
+from wifi.wifi import Wifi
 import subprocess
-import configparser
 import time
-
+import configparser
 config = configparser.ConfigParser()
 config.read("config/config.ini")
 
 BT_SCAN_DURATION = config.getint("DEFAULT", "BT_SCAN_DURATION_IN_SEC")
 WIFI_SCAN_DURATION = config.getint("DEFAULT", "WIFI_SCAN_DURATION_IN_SEC")
 WIFI_ADAPTER = config.get("DEFAULT", "WIFI_ADAPTER")
+
+wifi = Wifi()
 
 
 class Scanner:
@@ -21,10 +22,8 @@ class Scanner:
 
     def count_wifi_devices(self):
         """Scans for nearby WiFi devices"""
-        # TODO: Implement this
-
-        wifi_devices_count = wifi_scan(WIFI_ADAPTER, WIFI_SCAN_DURATION)
-        print(wifi_devices_count)
+        wifi_devices_count = wifi.discover_devices(
+            WIFI_ADAPTER, WIFI_SCAN_DURATION)
         return wifi_devices_count
 
     def start_monitor_mode(self):

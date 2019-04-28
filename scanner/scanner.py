@@ -10,7 +10,7 @@ BT_SCAN_DURATION = config.getint("DEFAULT", "BT_SCAN_DURATION_IN_SEC")
 WIFI_SCAN_DURATION = config.getint("DEFAULT", "WIFI_SCAN_DURATION_IN_SEC")
 WIFI_ADAPTER = config.get("DEFAULT", "WIFI_ADAPTER")
 
-wifi = Wifi()
+wifi = Wifi(WIFI_ADAPTER)
 
 
 class Scanner:
@@ -22,8 +22,7 @@ class Scanner:
 
     def count_wifi_devices(self):
         """Scans for nearby WiFi devices"""
-        wifi_devices_count = wifi.discover_devices(
-            WIFI_ADAPTER, WIFI_SCAN_DURATION)
+        wifi_devices_count = wifi.discover_devices(WIFI_SCAN_DURATION)
         return wifi_devices_count
 
     def start_monitor_mode(self):

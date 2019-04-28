@@ -11,10 +11,10 @@ class Wifi:
         self.load_oui()
         self.load_tshark()
         self.adapter = adapter
-        self.filter_mac_addresses = True  # Filter MAC addresses against the OUI dictionary
-        self.print_json = False  # Print smartphone data
+        self.filter_mac_addresses = True  # Filter MAC addresses against the OUI list
+        self.include_random_mac_addresses = True  # Include common random OUI addresses
         self.nearby = False  # Limit to devices that are nearby (rssi > -70)
-        self.verbose = False
+        self.print_json = False  # Print smartphone data
 
     def discover_devices(self, scantime):
         """Scans for nearby WiFi devices"""
@@ -26,8 +26,6 @@ class Wifi:
         # Scan with tshark
         command = [self.tshark, "-I", "-i", self.adapter, "-a",
                    "duration:" + str(scantime), "-w", dump_file]
-        if self.verbose:
-            print(" ".join(command))
         run_tshark = subprocess.Popen(
             command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         stdout, nothing = run_tshark.communicate()
@@ -41,16 +39,12 @@ class Wifi:
             "wlan.bssid", "-e",
             "radiotap.dbm_antsignal"
         ]
-        if self.verbose:
-            print(" ".join(command))
         run_tshark = subprocess.Popen(
             command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         output, nothing = run_tshark.communicate()
 
-        found_macs = {}
+        found_mac_addresses = {}
         for line in output.decode("utf-8").split("\n"):
-            if self.verbose:
-                print(line)
             if line.strip() == "":
                 continue
             mac = line.split()[0].strip().split(",")[0]
@@ -58,49 +52,57 @@ class Wifi:
             if len(dats) == 3:
                 if ":" not in dats[0] or len(dats) != 3:
                     continue
-                if mac not in found_macs:
-                    found_macs[mac] = []
+                if mac not in found_mac_addresses:
+                    found_mac_addresses[mac] = []
                 dats_2_split = dats[2].split(",")
                 if len(dats_2_split) > 1:
                     rssi = float(dats_2_split[0]) / \
                         2 + float(dats_2_split[1]) / 2
                 else:
                     rssi = float(dats_2_split[0])
-                found_macs[mac].append(rssi)
+                found_mac_addresses[mac].append(rssi)
 
-        if not found_macs:
+        if not found_mac_addresses:
             print("Found no signals. Make sure %s supports monitor mode." %
                   self.adapter)
             no_devices_found = 0
             return no_devices_found
 
-        for key, value in found_macs.items():
-            found_macs[key] = float(sum(value)) / float(len(value))
+        for key, value in found_mac_addresses.items():
+            found_mac_addresses[key] = float(sum(value)) / float(len(value))
 
-        known_smartphones = self.get_known_smartphones()
-        smartphone_people = []
-        for mac in found_macs:
-            oui_id = "Not in OUI"
-            if mac[:8] in self.oui_dic:
-                oui_id = self.oui_dic[mac[:8]]
-            if self.verbose:
-                print(mac, oui_id, oui_id in known_smartphones)
-            if not self.filter_mac_addresses or oui_id in known_smartphones:
-                if not self.nearby or (self.nearby and found_macs[mac] > -70):
-                    smartphone_people.append(
-                        {"company": oui_id, "rssi": found_macs[mac], "mac": mac})
-        if self.verbose:
-            print(json.dumps(smartphone_people, indent=2))
+        known_manufacturers = self.get_known_manufacturers()
+        known_random_mac_addresses = self.get_known_random_mac_addresses()
+        smartphone_data = []
+
+        for mac in found_mac_addresses:
+            company_name = "Not in OUI"
+            mac_oui = mac[:8]
+            if mac_oui in self.oui_list:
+                company_name = self.oui_list[mac_oui]
+
+            if self.include_random_mac_addresses:
+                if mac_oui in known_random_mac_addresses:
+                    smartphone_data.append(
+                        {"company": "randomizationDetected", "rssi": found_mac_addresses[mac], "mac": mac})
+                    continue
+
+            if not self.filter_mac_addresses or company_name in known_manufacturers:
+                rssi_limit = -50
+                if not self.nearby or (self.nearby and found_mac_addresses[mac] > rssi_limit):
+                    smartphone_data.append(
+                        {"company": company_name, "rssi": found_mac_addresses[mac], "mac": mac})
+
         if self.print_json:
-            print(json.dumps(smartphone_people, indent=2))
+            print(json.dumps(smartphone_data, indent=2))
 
-        people_count = int(len(smartphone_people))
+        people_count = int(len(smartphone_data))
         os.remove(dump_file)
         return people_count
 
-    def get_known_smartphones(self):
+    def get_known_manufacturers(self):
         """Returns a list of known smartphone manufacturers"""
-        known_smartphones = [
+        known_manufacturers = [
             "Motorola Mobility LLC, a Lenovo Company",
             "GUANGDONG OPPO MOBILE TELECOMMUNICATIONS CORP.,LTD",
             "Huawei Symantec Technologies Co.,Ltd.",
@@ -115,7 +117,12 @@ class Wifi:
             "OnePlus Tech (Shenzhen) Ltd",
             "Xiaomi Communications Co Ltd",
             "LG Electronics (Mobile Communications)"]
-        return known_smartphones
+        return known_manufacturers
+
+    def get_known_random_mac_addresses(self):
+        """Returns a list of known random MAC addresses prefixes"""
+        known_random_mac_addresses = ["da:a1:19"]
+        return known_random_mac_addresses
 
     def load_oui(self):
         """Loads a list of known smartphone manufacturers"""
@@ -128,7 +135,7 @@ class Wifi:
         if not oui:
             print("couldn\"t load [%s]" % oui_dic)
             sys.exit(1)
-        self.oui_dic = oui
+        self.oui_list = oui
 
     def load_tshark(self):
         try:

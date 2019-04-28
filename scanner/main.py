@@ -1,6 +1,8 @@
 from data_handler import DataHandler
 from scanner import Scanner
 from datetime import datetime
+from queue import Queue
+from threading import Thread
 
 
 def printStats(devices_count, sensor_type):
@@ -9,17 +11,45 @@ def printStats(devices_count, sensor_type):
         sensor_type) % (time, devices_count))
 
 
+def queueScans(scanner):
+    jobs = Queue()
+    threads_list = list()
+
+    t1 = Thread(target=lambda q: q.put(
+        scanner.count_bt_devices()), args=(jobs,))
+    t1.start()
+    threads_list.append(t1)
+
+    t2 = Thread(target=lambda q: q.put(
+        scanner.count_wifi_devices()), args=(jobs,))
+    t2.start()
+    threads_list.append(t2)
+
+    # Join threads
+    for t in threads_list:
+        t.join()
+
+    scan_results = []
+
+    # Get return values from threads
+    while not jobs.empty():
+        result = jobs.get()
+        scan_results.append(result)
+    return scan_results
+
+
 def main():
     scanner = Scanner()
     data_handler = DataHandler()
 
     while True:
-        # bt_devices_count = scanner.count_bt_devices()
-        wifi_devices_count = scanner.count_wifi_devices()
+        data = queueScans(scanner)
+        bt_devices_count = data[0]
+        wifi_devices_count = data[1]
 
-        # sensor_type = "bt"
-        # printStats(bt_devices_count, sensor_type)
-        # data_handler.send_data(bt_devices_count, sensor_type)
+        sensor_type = "bt"
+        printStats(bt_devices_count, sensor_type)
+        data_handler.send_data(bt_devices_count, sensor_type)
 
         sensor_type = "wifi"
         printStats(wifi_devices_count, sensor_type)

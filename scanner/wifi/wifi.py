@@ -18,8 +18,8 @@ class Wifi:
 
     def discover_devices(self, scantime):
         """Scans for nearby WiFi devices"""
-        print("Using %s adapter and scanning for %s seconds..." %
-              (self.adapter, scantime))
+        # print("Using %s adapter and scanning for %s seconds..." %
+        #       (self.adapter, scantime))
 
         dump_file = "/tmp/tshark-temp"
 
@@ -63,8 +63,8 @@ class Wifi:
                 found_mac_addresses[mac].append(rssi)
 
         if not found_mac_addresses:
-            print("Found no signals. Make sure %s supports monitor mode." %
-                  self.adapter)
+            # print("Found no signals. Make sure %s supports monitor mode." %
+            #       self.adapter)
             no_devices_found = 0
             return no_devices_found
 
@@ -121,7 +121,7 @@ class Wifi:
 
     def get_known_random_mac_addresses(self):
         """Returns a list of known random MAC addresses prefixes"""
-        known_random_mac_addresses = ["da:a1:19"]
+        known_random_mac_addresses = ["da:a1:19", "92:68:c3"]
         return known_random_mac_addresses
 
     def load_oui(self):

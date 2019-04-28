@@ -3,8 +3,6 @@ import os
 import os.path
 import subprocess
 import sys
-import threading
-import time
 from wifi.oui import load_dictionary, download_oui
 
 

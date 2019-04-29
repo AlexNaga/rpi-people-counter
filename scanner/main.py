@@ -3,6 +3,7 @@ from scanner import Scanner
 from datetime import datetime
 from queue import Queue
 from threading import Thread
+import sys
 
 
 def printStats(devices_count, sensor_type):
@@ -17,11 +18,13 @@ def queueScans(scanner):
 
     t1 = Thread(target=lambda q: q.put(
         scanner.count_bt_devices()), args=(jobs,))
+    t1.daemon = True  # Kill thread on exit
     t1.start()
     threads_list.append(t1)
 
     t2 = Thread(target=lambda q: q.put(
         scanner.count_wifi_devices()), args=(jobs,))
+    t2.daemon = True  # Kill thread on exit
     t2.start()
     threads_list.append(t2)
 
@@ -43,17 +46,21 @@ def main():
     data_handler = DataHandler()
 
     while True:
-        data = queueScans(scanner)
-        bt_devices_count = data[0]
-        wifi_devices_count = data[1]
+        try:
+            data = queueScans(scanner)
+            bt_devices_count = data[0]
+            wifi_devices_count = data[1]
 
-        sensor_type = "bt"
-        printStats(bt_devices_count, sensor_type)
-        data_handler.send_data(bt_devices_count, sensor_type)
+            sensor_type = "bt"
+            printStats(bt_devices_count, sensor_type)
+            data_handler.send_data(bt_devices_count, sensor_type)
 
-        sensor_type = "wifi"
-        printStats(wifi_devices_count, sensor_type)
-        data_handler.send_data(wifi_devices_count, sensor_type)
+            sensor_type = "wifi"
+            printStats(wifi_devices_count, sensor_type)
+            data_handler.send_data(wifi_devices_count, sensor_type)
+
+        except (KeyboardInterrupt, SystemExit):
+            sys.exit()
 
 
 if __name__ == "__main__":

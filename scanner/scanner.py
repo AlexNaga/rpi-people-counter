@@ -16,13 +16,21 @@ wifi = Wifi(WIFI_ADAPTER)
 class Scanner:
     def count_bt_devices(self):
         """Scans for nearby Bluetooth devices"""
+        start = time.time()
         bt_devices_count = len(bluetooth.discover_devices(
             duration=BT_SCAN_DURATION))
+        end = time.time()
+        timeInSec = end - start
+        print("BT time: %ss" % timeInSec)
         return bt_devices_count
 
     def count_wifi_devices(self):
         """Scans for nearby WiFi devices"""
+        start = time.time()
         wifi_devices_count = wifi.discover_devices(WIFI_SCAN_DURATION)
+        end = time.time()
+        timeInSec = end - start
+        print("WiFi time: %ss" % timeInSec)
         return wifi_devices_count
 
     def start_monitor_mode(self):

@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Change this if needed
+WIFI_INTERFACE="wlan1"
+
+# Start WiFI monitor mode
+sudo airmon-ng start $WIFI_INTERFACE
+
 # Start the Bluetooth device
 sudo btmgmt power on
 

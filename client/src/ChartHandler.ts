@@ -95,9 +95,9 @@ class ChartHandler {
 
   initLiveChart(data: Data) {
     // Config for the chart animation
-    const delayInSeconds = 30 * 1000;
-    const ttlInSeconds = 180 * 1000;
-    const durationInSeconds = 120 * 1000;
+    const delayInSeconds = 60 * 1000;
+    const ttlInSeconds = 240 * 1000;
+    const timeSpanInSeconds = 120 * 1000;
 
     const liveCanvas = <HTMLCanvasElement>$("#liveChart").get(0);
     const liveCtx = liveCanvas.getContext("2d");
@@ -131,7 +131,7 @@ class ChartHandler {
             type: "realtime",
             realtime: {
               delay: delayInSeconds,
-              duration: durationInSeconds,
+              duration: timeSpanInSeconds,
               ttl: ttlInSeconds,
             },
             time: {
@@ -180,9 +180,10 @@ class ChartHandler {
     });
 
     let initDate = moment().format(this.dateFormat);
-    const firstTick = 30;
-    const secondtTick = 10;
-    const animDelayInSeconds = [firstTick, secondtTick];
+    const firstTick = 60;
+    const secondtTick = 30;
+    const thirdtTick = 0;
+    const animDelayInSeconds = [firstTick, secondtTick, thirdtTick];
 
     // Add "buffer" ticks for a smoother init of the chart
     for (let i = 0; i < data.length; i++) {

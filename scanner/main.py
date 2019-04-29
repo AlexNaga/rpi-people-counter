@@ -31,6 +31,7 @@ def queueScans(scanner):
     # Join threads
     for t in threads_list:
         t.join()
+        # t.keepRunning = False
 
     scan_results = []
 

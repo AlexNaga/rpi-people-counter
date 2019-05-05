@@ -4,7 +4,7 @@
 
  [Service]
  Type=idle
- ExecStart=/bin/bash /root/deploy-folder/scripts/1_run_server.sh
+ ExecStart=/bin/bash ~/deploy-folder/scripts/1_run_server.sh
 
  [Install]
  WantedBy=multi-user.target

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Change this if needed
-WIFI_INTERFACE="wlan1"
+WIFI_INTERFACE="wlan0"
 
 # Start WiFI monitor mode
 sudo airmon-ng start $WIFI_INTERFACE

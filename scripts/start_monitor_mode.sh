@@ -8,3 +8,7 @@ INTERFACE="wlan0"
 
 # Start monitor mode
 sudo airmon-ng start $INTERFACE
+
+# Restart the interface
+ifdown $INTERFACE
+ifup $INTERFACE

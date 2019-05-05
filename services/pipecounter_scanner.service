@@ -1,0 +1,10 @@
+ [Unit]
+ Description=piPeCounter Scanner Service
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ ExecStart=/bin/bash /root/deploy-folder/scripts/2_run_scanner.sh
+
+ [Install]
+ WantedBy=multi-user.target

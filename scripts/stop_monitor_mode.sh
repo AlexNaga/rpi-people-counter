@@ -1,6 +1,6 @@
 #!/bin/bash
 
-INTERFACE="wlan1mon"
+INTERFACE="wlan0mon"
 
 # Stop monitor mode
 sudo airmon-ng stop "{$INTERFACE}"

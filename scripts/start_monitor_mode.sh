@@ -4,7 +4,7 @@
 # To check for interfaces: sudo ip a
 # To check for interfaces: sudo iw dev
 
-INTERFACE="wlan1"
+INTERFACE="wlan0"
 
 # Start monitor mode
 sudo airmon-ng start $INTERFACE

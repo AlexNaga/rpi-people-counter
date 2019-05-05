@@ -1,6 +1,6 @@
  [Unit]
  Description=piPeCounter Server Service
- After=multi-user.target
+ After=multi-user.target monitor_mode.service
 
  [Service]
  Type=idle

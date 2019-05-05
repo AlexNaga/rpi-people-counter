@@ -1,6 +1,6 @@
  [Unit]
  Description=Starts Monitor Mode
- After=multi-user.target
+ After=multi-user.target network.target
 
  [Service]
  Type=idle

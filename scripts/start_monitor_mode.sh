@@ -10,5 +10,5 @@ INTERFACE="wlan0"
 sudo airmon-ng start $INTERFACE
 
 # Restart the interface
-ifdown $INTERFACE
-ifup $INTERFACE
+#ifdown $INTERFACE
+#ifup $INTERFACE

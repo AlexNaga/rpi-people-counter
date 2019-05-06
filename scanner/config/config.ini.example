@@ -1,8 +1,6 @@
 [DEFAULT]
 SENSOR_ID = rpi0w_0
 PHYSICAL_AREA = lnu/classrooms/classroom_0
-MONGODB_SERVER = localhost
-MONGODB_PORT = 27017
 MQTT_SERVER = localhost
 MQTT_PORT = 1883
 BT_SCAN_DURATION_IN_SEC = 30

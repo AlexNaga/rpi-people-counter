@@ -7,12 +7,15 @@ config.read("config/config.ini")
 
 MONGODB_SERVER = config.get("DEFAULT", "MONGODB_SERVER")
 MONGODB_PORT = config.getint("DEFAULT", "MONGODB_PORT")
+MONGODB_USERNAME = config.get("DEFAULT", "MONGODB_USERNAME")
+MONGODB_PASSWORD = config.get("DEFAULT", "MONGODB_PASSWORD")
 
 
 class DatabaseHandler():
     def __init__(self):
         client = MongoClient(MONGODB_SERVER, MONGODB_PORT)
         db = client.sensor_db
+        db.authenticate(MONGODB_USERNAME, MONGODB_PASSWORD)
         self.collection = db.sensor_collection
 
     def add(self, data):
@@ -25,7 +28,7 @@ class DatabaseHandler():
         all_wifi = self.get_all_wifi()
 
         data = EasyDict({"bt_devices": all_bt,
-                      "wifi_devices": all_wifi})
+                         "wifi_devices": all_wifi})
         return data
 
     def get_all_bt(self):

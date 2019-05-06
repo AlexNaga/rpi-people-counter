@@ -2,10 +2,9 @@ import { ChartHandler } from "./ChartHandler";
 import { DataHandler } from "./DataHandler";
 import { EventHandler } from "./EventHandler";
 
-// Config
-// const SERVER = "localhost";
-const SERVER = "rpi-counter.local";
-const PORT = 8000;
+const config = require("../config/config.json");
+const SERVER = config.SERVER;
+const PORT = config.PORT;
 
 const SERVER_URL = `http://${SERVER}:${PORT}/data`;
 

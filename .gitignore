@@ -19,6 +19,7 @@ node_modules/
 
 # Configs
 config.ini
+config.json
 
 # Scripts
 #*_run_*.sh

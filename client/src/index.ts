@@ -2,9 +2,10 @@ import { ChartHandler } from "./ChartHandler";
 import { DataHandler } from "./DataHandler";
 import { EventHandler } from "./EventHandler";
 
-// Config 
-const SERVER = "localhost"
-const PORT = 8000
+// Config
+// const SERVER = "localhost";
+const SERVER = "rpi-counter.local";
+const PORT = 8000;
 
 const SERVER_URL = `http://${SERVER}:${PORT}/data`;
 

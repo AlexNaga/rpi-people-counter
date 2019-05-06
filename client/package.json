@@ -4,7 +4,6 @@
   "description": "Real-time application for estimating the number of people in an area using WiFi and Bluetooth signals.",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch",
     "build": "webpack"
   },

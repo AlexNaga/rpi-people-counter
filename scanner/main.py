@@ -22,11 +22,11 @@ def queueScans(scanner):
     t1.start()
     threads_list.append(t1)
 
-    t2 = Thread(target=lambda q: q.put(
-        scanner.count_wifi_devices()), args=(jobs,))
-    t2.daemon = True  # Kill thread on exit
-    t2.start()
-    threads_list.append(t2)
+    # t2 = Thread(target=lambda q: q.put(
+    #     scanner.count_wifi_devices()), args=(jobs,))
+    # t2.daemon = True  # Kill thread on exit
+    # t2.start()
+    # threads_list.append(t2)
 
     # Join threads
     for t in threads_list:
@@ -50,7 +50,8 @@ def main():
         try:
             data = queueScans(scanner)
             bt_devices_count = data[0]
-            wifi_devices_count = data[1]
+            # wifi_devices_count = data[1]
+            wifi_devices_count = 42
 
             sensor_type = "bt"
             printStats(bt_devices_count, sensor_type)

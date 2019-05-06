@@ -93,7 +93,7 @@
 /*! exports provided: SERVER, PORT, default */
 /***/ (function(module) {
 
-eval("module.exports = {\"SERVER\":\"localhost\",\"PORT\":8000};\n\n//# sourceURL=webpack:///./config/config.json?");
+eval("module.exports = {\"SERVER\":\"rpi-counter.local\",\"PORT\":8000};\n\n//# sourceURL=webpack:///./config/config.json?");
 
 /***/ }),
 

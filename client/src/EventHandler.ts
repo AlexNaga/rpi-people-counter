@@ -21,7 +21,6 @@ class EventHandler {
   }
 
   private onMessage(msg: MessageEvent) {
-    console.log("Received message");
     const data: Data = JSON.parse(msg.data);
     this.chartHandler.updateLiveChart(data);
 

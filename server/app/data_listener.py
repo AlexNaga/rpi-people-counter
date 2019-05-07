@@ -36,7 +36,6 @@ def mqtt_on_message(client, userdata, msg):
     json_data = msg.payload.decode("utf-8")
     data = data_handler.from_json(json_data)
 
-    print(data)
     # Publish the data to the Redis db
     red.publish("events", json_data)
 

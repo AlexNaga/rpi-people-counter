@@ -330,7 +330,8 @@ class ChartHandler {
     this.dataHandler.getStats()
       .then(stats => this.updatePieChart(stats))
       .catch(e => console.log("Could not fetch statistics."));
-    await this.sleep(5);
+    const refreshInSeconds = 30;
+    await this.sleep(refreshInSeconds);
     this.loopPieChartUpdate() // Recursive call
   }
 }

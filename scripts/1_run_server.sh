@@ -6,4 +6,4 @@
 echo "Starting server..."
 # cd server
 cd ~/deploy-folder/server
-pipenv run gunicorn run:gunicorn_app --workers=1 --worker-class gevent --bind localhost:8000 --log-level debug
+pipenv run gunicorn run:gunicorn_app --workers=1 --worker-class gevent --bind localhost:8000

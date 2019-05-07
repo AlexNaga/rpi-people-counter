@@ -51,9 +51,8 @@ def get_latest_bt():
 @data_api.route("/data/latest/wifi")
 def get_latest_wifi():
     """Returns the latest WiFi entry to the client"""
-    # data = db_handler.get_latest_wifi()
-    # json_data = DataHandler().to_json(data)
-    json_data = '{"devices_count": 33, "timestamp": "2019-05-06 21:38:48", "area": "lnu/classrooms/classroom_0", "sensor_type": "wifi"}'
+    data = db_handler.get_latest_wifi()
+    json_data = DataHandler().to_json(data)
     return json_data
 
 

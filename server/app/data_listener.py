@@ -54,7 +54,7 @@ def send_event():
         yield "data: %s\n\n" % msg["data"]
 
 
-@events_api.route("/data/events")
+@events_api.route("/sse")
 def sse():
     """Sends the data to client as Server-sent event"""
     return Response(

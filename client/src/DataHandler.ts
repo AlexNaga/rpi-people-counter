@@ -2,7 +2,7 @@ class DataHandler {
   url: string;
 
   constructor(url: string) {
-    this.url = url;
+    this.url = url + "/data";
   }
 
   async getAllData() {

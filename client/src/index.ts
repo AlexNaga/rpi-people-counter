@@ -6,7 +6,8 @@ const config = require("../config/config.json");
 const SERVER = config.SERVER;
 const PORT = config.PORT;
 
-const SERVER_URL = `http://${SERVER}:${PORT}/data`;
+// const SERVER_URL = `http://${SERVER}:${PORT}/data`;
+const SERVER_URL = `http://${SERVER}/data`;
 
 window.onload = () => {
   const dataHandler = new DataHandler(SERVER_URL);

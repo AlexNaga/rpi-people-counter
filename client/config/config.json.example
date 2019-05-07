@@ -1,4 +1,4 @@
 {
-  "SERVER": "rpi-counter.local",
+  "SERVER": "localhost",
   "PORT": 8000
 }

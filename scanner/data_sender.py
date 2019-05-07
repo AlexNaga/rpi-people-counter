@@ -23,5 +23,4 @@ class DataSender:
 
     def send_data(self, data):
         """Sends the data to the MQTT broker"""
-        print("Send data MQTT")
         self.mqttc.publish(self.physical_area, data)

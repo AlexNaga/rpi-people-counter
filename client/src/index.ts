@@ -14,7 +14,13 @@ window.onload = () => {
   const eventHandler = new EventHandler(SERVER_URL, chartHandler);
 
   eventHandler.connect();
-  dataHandler.getLatest().then(data => chartHandler.initLiveChart(data));
-  dataHandler.getStats().then(data => chartHandler.initPieChart(data));
+  dataHandler.getLatest()
+    .then(data => chartHandler.initLiveChart(data))
+    .catch(e => console.log("Could not fetch latest data."))
+
+  dataHandler.getStats()
+    .then(data => chartHandler.initPieChart(data))
+    .catch(e => console.log("Could not fetch statistics."));
+
   chartHandler.loopPieChartUpdate();
 };

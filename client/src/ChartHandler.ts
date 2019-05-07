@@ -327,7 +327,9 @@ class ChartHandler {
   }
 
   async loopPieChartUpdate() {
-    this.dataHandler.getStats().then(stats => this.updatePieChart(stats));
+    this.dataHandler.getStats()
+      .then(stats => this.updatePieChart(stats))
+      .catch(e => console.log("Could not fetch statistics."));
     await this.sleep(5);
     this.loopPieChartUpdate() // Recursive call
   }

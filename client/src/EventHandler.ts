@@ -7,7 +7,7 @@ class EventHandler {
   private tmpList = [];
 
   constructor(url: string, chartHandler: ChartHandler) {
-    this.eventSource = new EventSource(url + "/events")
+    this.eventSource = new EventSource(url + "/events");
     this.chartHandler = chartHandler;
   }
 

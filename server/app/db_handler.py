@@ -15,7 +15,7 @@ class DatabaseHandler():
     def __init__(self):
         client = MongoClient(MONGODB_SERVER, MONGODB_PORT)
         db = client.sensor_db
-        db.authenticate(MONGODB_USERNAME, MONGODB_PASSWORD)
+        # db.authenticate(MONGODB_USERNAME, MONGODB_PASSWORD)
         self.collection = db.sensor_collection
 
     def add(self, data):
@@ -47,10 +47,23 @@ class DatabaseHandler():
 
     def get_latest_bt(self):
         """Gets the lastest Bluetooth entry from the db"""
-        return self.collection.find({"sensor_type": "bt"}, {"_id": False}).sort(
-            [("timestamp", -1)]).limit(1)[0]
+        data = self.collection.find({"sensor_type": "bt"}, {"_id": False}).sort(
+            [("timestamp", -1)]).limit(1)
+
+        if self.is_empty(data):
+            return None
+        else:
+            return data[0]
 
     def get_latest_wifi(self):
         """Gets the lastest WiFi entry from the db"""
-        return self.collection.find({"sensor_type": "wifi"}, {"_id": False}).sort(
-            [("timestamp", -1)]).limit(1)[0]
+        data = self.collection.find({"sensor_type": "wifi"}, {"_id": False}).sort([
+            ("timestamp", -1)]).limit(1)
+
+        if self.is_empty(data):
+            return None
+        else:
+            return data[0]
+
+    def is_empty(self, data):
+        return data.count() < 1

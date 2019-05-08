@@ -4,7 +4,7 @@
 # sudo btmgmt power on
 
 # Start the MongoDB database
-# mongod &
+mongod &
 
 # Start the Redis server
 redis-server &

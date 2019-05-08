@@ -20,7 +20,8 @@ window.onload = () => {
 
   dataHandler.getStats()
     .then(data => chartHandler.initPieChart(data))
-    .catch(e => console.log("Could not fetch statistics."));
+    // .catch(e => console.log("Could not fetch statistics."));
+    .catch(e => console.log(e));
 
   chartHandler.loopPieChartUpdate();
 };

@@ -3,7 +3,6 @@ import os
 import os.path
 import subprocess
 import sys
-import threading
 from wifi.oui import load_dictionary, download_oui
 
 
@@ -19,13 +18,8 @@ class Wifi:
 
     def discover_devices(self, scan_time_in_sec):
         """Scans for nearby WiFi devices"""
-        print("Using %s adapter and scanning for %s seconds..." %
-              (self.adapter, scan_time_in_sec))
-
-        # Start timer
-        t1 = threading.Thread(target=show_timer, args=(scan_time_in_sec,))
-        t1.daemon = True
-        t1.start()
+        # print("Using %s adapter and scanning for %s seconds..." %
+        #       (self.adapter, scan_time_in_sec))
 
         dump_file = "/tmp/tshark-temp"
 
@@ -35,8 +29,6 @@ class Wifi:
         run_tshark = subprocess.Popen(
             command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         stdout, nothing = run_tshark.communicate()
-
-        t1.join()  # Join timer threads
 
         # Read tshark output
         command = [
@@ -167,19 +159,3 @@ class Wifi:
                 exe_file = os.path.join(path, program)
                 if is_exe(exe_file):
                     return exe_file
-
-    def show_timer(self, timeleft):
-    """Shows a countdown timer"""
-    total = int(timeleft) * 10
-
-    for i in range(total):
-        sys.stdout.write("\r")
-        timeleft_string = "%ds left" % int((total - i + 1) / 10)
-        if (total - i + 1) > 600:
-            timeleft_string = "%dmin %ds left" % (
-                int((total - i + 1) / 600), int((total - i + 1) / 10 % 60))
-        sys.stdout.write("[%-50s] %d%% %15s" %
-                         ("=" * int(50.5 * i / total), 101 * i / total, timeleft_string))
-        sys.stdout.flush()
-        time.sleep(0.1)
-    print("")

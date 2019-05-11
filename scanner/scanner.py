@@ -22,8 +22,9 @@ class Scanner:
             bt_devices_count = len(bluetooth.discover_devices(
                 duration=BT_SCAN_DURATION))
             return bt_devices_count
-        except Exception:
+        except Exception as e:
             print("Error: Could not access BT adapter.")
+            print(e)
             sys.exit(1)
 
     def count_wifi_devices(self):

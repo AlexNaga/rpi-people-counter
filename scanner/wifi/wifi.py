@@ -3,6 +3,7 @@ import os
 import os.path
 import subprocess
 import sys
+import threading
 from wifi.oui import load_dictionary, download_oui
 
 
@@ -16,19 +17,26 @@ class Wifi:
         self.nearby = False  # Limit to devices that are nearby (rssi > -70)
         self.print_json = False  # Print smartphone data
 
-    def discover_devices(self, scantime):
+    def discover_devices(self, scan_time_in_sec):
         """Scans for nearby WiFi devices"""
-        # print("Using %s adapter and scanning for %s seconds..." %
-        #       (self.adapter, scantime))
+        print("Using %s adapter and scanning for %s seconds..." %
+              (self.adapter, scan_time_in_sec))
+
+        # Start timer
+        t1 = threading.Thread(target=show_timer, args=(scan_time_in_sec,))
+        t1.daemon = True
+        t1.start()
 
         dump_file = "/tmp/tshark-temp"
 
         # Scan with tshark
         command = [self.tshark, "-I", "-i", self.adapter, "-a",
-                   "duration:" + str(scantime), "-w", dump_file]
+                   "duration:" + str(scan_time_in_sec), "-w", dump_file]
         run_tshark = subprocess.Popen(
             command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         stdout, nothing = run_tshark.communicate()
+
+        t1.join()  # Join timer threads
 
         # Read tshark output
         command = [
@@ -63,8 +71,8 @@ class Wifi:
                 found_mac_addresses[mac].append(rssi)
 
         if not found_mac_addresses:
-            # print("Found no signals. Make sure %s supports monitor mode." %
-            #       self.adapter)
+            print("Found no signals. Make sure %s supports monitor mode." %
+                  self.adapter)
             no_devices_found = 0
             return no_devices_found
 
@@ -159,3 +167,19 @@ class Wifi:
                 exe_file = os.path.join(path, program)
                 if is_exe(exe_file):
                     return exe_file
+
+    def show_timer(self, timeleft):
+    """Shows a countdown timer"""
+    total = int(timeleft) * 10
+
+    for i in range(total):
+        sys.stdout.write("\r")
+        timeleft_string = "%ds left" % int((total - i + 1) / 10)
+        if (total - i + 1) > 600:
+            timeleft_string = "%dmin %ds left" % (
+                int((total - i + 1) / 600), int((total - i + 1) / 10 % 60))
+        sys.stdout.write("[%-50s] %d%% %15s" %
+                         ("=" * int(50.5 * i / total), 101 * i / total, timeleft_string))
+        sys.stdout.flush()
+        time.sleep(0.1)
+    print("")

@@ -57,10 +57,17 @@ def get_latest_wifi():
 
 
 @data_api.route("/data/stats")
-def users():
+def get_stats():
     data = db_handler.get_all()
-    bt_devices_count = len(data.bt_devices)
-    wifi_devices_count = len(data.wifi_devices)
+    bt_devices_count = 0
+    wifi_devices_count = 0
+
+    for bt_device in data.bt_devices:
+        bt_devices_count += bt_device.devices_count
+
+    for wifi_device in data.wifi_devices:
+        wifi_devices_count += wifi_device.devices_count
+
     total_devices_count = bt_devices_count + wifi_devices_count
 
     data_dict = edict({"total_devices_count": total_devices_count, "bt_devices_count": bt_devices_count,

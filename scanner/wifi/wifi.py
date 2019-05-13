@@ -13,7 +13,7 @@ class Wifi:
         self.adapter = adapter
         self.filter_mac_addresses = True  # Filter MAC addresses against the OUI list
         self.include_random_mac_addresses = True  # Include common random OUI addresses
-        self.nearby = False  # Limit to devices that are nearby (rssi > -70)
+        self.nearby = True  # Limit to devices that are nearby (rssi > -70)
         self.print_json = False  # Print smartphone data
 
     def discover_devices(self, scan_time_in_sec):

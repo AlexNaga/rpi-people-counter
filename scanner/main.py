@@ -54,11 +54,13 @@ def main():
 
             sensor_type = "bt"
             printStats(bt_devices_count, sensor_type)
-            data_handler.send_data(bt_devices_count, sensor_type)
+            # data_handler.send_data(bt_devices_count, sensor_type)
+            data_handler.save_data(bt_devices_count, sensor_type)
 
             sensor_type = "wifi"
             printStats(wifi_devices_count, sensor_type)
-            data_handler.send_data(wifi_devices_count, sensor_type)
+            # data_handler.send_data(wifi_devices_count, sensor_type)
+            data_handler.save_data(wifi_devices_count, sensor_type)
 
         except (KeyboardInterrupt, SystemExit):
             sys.exit()

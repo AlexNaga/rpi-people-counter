@@ -4,10 +4,10 @@
 sudo btmgmt power on
 
 # Start the MongoDB database
-mongod &
+# mongod &
 
 # Start the Redis server
-redis-server &
+# redis-server &
 
 # Start the MQTT server
-mosquitto -d
+# mosquitto -d

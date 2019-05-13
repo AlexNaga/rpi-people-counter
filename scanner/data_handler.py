@@ -13,13 +13,13 @@ PHYSICAL_AREA = config.get("DEFAULT", "PHYSICAL_AREA")
 
 
 class DataHandler:
-    def __init__(self):
-        self.data_sender = DataSender()
+    # def __init__(self):
+        # self.data_sender = DataSender()
 
-    def send_data(self, devices_count, sensor_type):
-        """Sends the data to the MQTT broker"""
-        json_data = self.to_json(devices_count, sensor_type)
-        self.data_sender.send_data(json_data)
+    # def send_data(self, devices_count, sensor_type):
+    #     """Sends the data to the MQTT broker"""
+    #     json_data = self.to_json(devices_count, sensor_type)
+    #     self.data_sender.send_data(json_data)
 
     def save_data(self, devices_count, sensor_type):
         """Saves the data locally"""

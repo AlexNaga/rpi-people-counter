@@ -13,7 +13,7 @@ class Wifi:
         self.adapter = adapter
         self.filter_mac_addresses = True  # Filter MAC addresses against the OUI list
         self.include_random_mac_addresses = True  # Include common random OUI addresses
-        self.nearby = False  # Limit to devices that are nearby (rssi > -70)
+        self.nearby = True  # Limit to devices that are nearby (rssi > -70)
         self.print_json = False  # Print smartphone data
 
     def discover_devices(self, scan_time_in_sec):
@@ -88,7 +88,7 @@ class Wifi:
                     continue
 
             if not self.filter_mac_addresses or company_name in known_manufacturers:
-                rssi_limit = -50
+                rssi_limit = -70
                 if not self.nearby or (self.nearby and found_mac_addresses[mac] > rssi_limit):
                     smartphone_data.append(
                         {"company": company_name, "rssi": found_mac_addresses[mac], "mac": mac})

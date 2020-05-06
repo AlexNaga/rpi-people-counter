@@ -140,16 +140,16 @@ pipenv run python main.py
 
 **System overview**
 
-![System overview](img/system_overview.svg?sanitize=true)
+![System overview](img/system_overview.svg)
 
 **Scanner view**
 
-![Scanner view](img/scanner_view.svg?sanitize=true)
+![Scanner view](img/scanner_view.svg)
 
 **Server-side view**
 
-![Server-side view](img/server_view.svg?sanitize=true)
+![Server-side view](img/server_view.svg)
 
 **Client-side view**
 
-![Client-side view](img/client_view.svg?sanitize=true)
+![Client-side view](img/client_view.svg)

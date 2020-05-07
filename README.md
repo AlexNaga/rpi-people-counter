@@ -127,9 +127,16 @@ pipenv run gunicorn run:gunicorn_app --workers=1 --worker-class gevent --bind lo
 
 ### Running the scanner
 
+The scan process is realized by the program `tshark`:
+
+```bash
+sudo apt-get install tshark
+```
+
 1.  Go to the scanner folder:
 `cd rpi-people-counter/scanner`
-2.  Make a copy of the configuration file: `cp config/config.ini.example config/config.ini`
+2.  Make a copy of the configuration file:
+`cp config/config.ini.example config/config.ini`
 3.  Then run:
 
 ```bash

@@ -4,6 +4,9 @@ Real-time application for estimating the number of people in an area using Bluet
 
 ![piPeCounter](img/piPeCounter.png)
 
+## DEPRECATED
+I recommend checking out this repo instead: https://github.com/IanMercer/pi-sniffer
+
 ## Installation
 
 The setup instructions are based on _Raspbian Buster_, as this project aims for a _Raspberry Pi Zero W_ as platform.

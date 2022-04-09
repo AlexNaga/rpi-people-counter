@@ -39,6 +39,6 @@
     "chartjs-plugin-colorschemes": "^0.3.0",
     "chartjs-plugin-datalabels": "^0.6.0",
     "chartjs-plugin-streaming": "^1.8.0",
-    "moment": "^2.24.0"
+    "moment": "^2.29.2"
   }
 }

@@ -24,10 +24,10 @@
   "homepage": "https://github.com/AlexNaga/rpi-people-counter#readme",
   "devDependencies": {
     "browser-sync-webpack-plugin": "^2.2.2",
-    "ts-loader": "^5.3.3",
+    "ts-loader": "^9.4.2",
     "typescript": "^3.4.1",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0"
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   },
   "dependencies": {
     "@types/chart.js": "^2.7.50",
